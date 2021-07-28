@@ -113,4 +113,26 @@ class Building extends CI_Controller {
             }
         }
     }
+
+    public function delete() {
+        if (_is_user_login($this)) {
+            $building_id = $this->uri->segment(3);
+            if ($building_id > 0) {
+                $id = $this->building->delete_building($building_id);
+    
+                if ($id > 0) {
+                    $this->session->set_flashdata('type', 'success');
+                    $this->session->set_flashdata('title', 'Success');
+                    $this->session->set_flashdata('text', 'Building data deleted Successfully');
+                } else {
+                    $this->session->set_flashdata('type', 'danger');
+                    $this->session->set_flashdata('title', 'Error');
+                    $this->session->set_flashdata('text', 'Error deleteng building');
+                }
+                redirect('building');
+            }else {
+                redirect('building');
+            }
+      }
+    }
 }

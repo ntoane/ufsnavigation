@@ -12,20 +12,20 @@
     <title>UFS Campus Navigation Assistant - CMS</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?= base_url(); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url(); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
        
     <!-- Page level plugin CSS-->
-    <link href="<?=base_url();?>assets/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?=base_url();?>assets/vendor/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url();?>vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url();?>vendor/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 
     <!--Data Table export files-->
-    <link href="<?=base_url();?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?=base_url();?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <!---------Dropzone--------------------------->
-    <script src="<?=base_url();?>assets/vendor/dropzone-5.7.0/dist/min/dropzone.min.js"></script>
+    <link href="<?=base_url();?>vendor/dropzone-5.7.0/dist/min/dropzone.min.css" rel="stylesheet">
 
     <!-- Custom styles for this UI theme-->
     <link href="<?= base_url(); ?>assets/css/sb-admin-2.css" rel="stylesheet">
@@ -296,20 +296,24 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
-    <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url(); ?>vendor/jquery/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?= base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= base_url(); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url(); ?>assets/js/sb-admin-2.min.js"></script>
 
+    <!----------------------------Dropzone----------------------------------------------->
+    <script src="<?= base_url(); ?>vendor/dropzone-5.7.0/dist/min/dropzone.min.js"></script>
+    <!-- <script> $("div#dropbuildingimages").dropzone({ url: "<?= base_url() . 'building/create' ?>" }); </script> -->
+
     <!-- Page level plugins -->
-    <script src="<?=base_url();?>assets/vendor/fullcalendar/js/moment.min.js" type="text/javascript"></script>
-    <script src="<?=base_url();?>assets/vendor/fullcalendar/js/fullcalendar.min.js" type="text/javascript"></script>
+    <script src="<?=base_url();?>vendor/fullcalendar/js/moment.min.js" type="text/javascript"></script>
+    <script src="<?=base_url();?>vendor/fullcalendar/js/fullcalendar.min.js" type="text/javascript"></script>
     <script src="<?=base_url();?>assets/js/calendar.js" type="text/javascript"></script>
-    <script src="<?=base_url();?>assets/vendor/sweetalert/sweetalert.min.js" type="text/javascript"></script>
+    <script src="<?=base_url();?>vendor/sweetalert/sweetalert.min.js" type="text/javascript"></script>
     <?php
     if (!empty($this->session->flashdata())) {
         ?>
@@ -322,8 +326,8 @@
     ?>
 
     <!------------Datatables--------------------->
-    <script src="<?=base_url();?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?=base_url();?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="<?=base_url();?>vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?=base_url();?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="<?=base_url();?>assets/js/demo/datatables-demo.js"></script>
 
 
@@ -332,6 +336,11 @@
 $('#deleteAdmin').on('show.bs.modal', function(event) {
     let adminRecord = $(event.relatedTarget).data('recordid');
     $("#adminRecord").attr("href", "<?=base_url() . 'admin/delete/'?>" + adminRecord);
+});
+
+$('#deleteBuilding').on('show.bs.modal', function(event) {
+    let buildingRecord = $(event.relatedTarget).data('recordid');
+    $("#buildingRecord").attr("href", "<?=base_url() . 'building/delete/'?>" + buildingRecord);
 });
 
 </script>

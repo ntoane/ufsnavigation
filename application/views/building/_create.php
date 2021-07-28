@@ -38,15 +38,20 @@
             </div>
             </div>
             </div>
-            <div class="col">
+            <div class="col" >
                 <h6>Upload images(<small>you can select multiple images at once</small>)</h6>
                 <input type='file' name='files[]' multiple="">
+                <!-- <div class="dropzone" id="my-dropzone" name="mainFileUploader">
+                    <div class="fallback">
+                        <input name="files[]" type="file" multiple />
+                    </div>
+                </div> -->
             </div>
         </div>
 
         <div class="row mt-4">
             <div class="form-group col-md-12">
-                <input class="btn btn-primary btn-block" name="submit_building" type="submit" value="Add Building" />
+                <input class="btn btn-primary btn-block" name="submit_building" id="submit-all" type="submit" value="Add Building" />
             </div>
         </div>
         </form>

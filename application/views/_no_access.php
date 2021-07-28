@@ -8,7 +8,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() . 'assets/imgs/'; ?>1567153104.ico">
 
         <title>UFS Campus Navigation Assistant | No Access</title>
         <link href="<?= base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>

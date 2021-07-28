@@ -46,7 +46,7 @@
                         <td>
                             <div class="btn-group">
                                 <a href="<?= base_url() . 'building/edit/' . $building['building_id']; ?>" class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit this building"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteAdmin" data-recordid="<?=$building['building_id']?>" data-placement="top" title="Delete this building"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteBuilding" data-recordid="<?=$building['building_id']?>" data-placement="top" title="Delete this building"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -57,5 +57,27 @@
         </table>
     </div>
     </div>
+    </div>
+</div>
+
+
+<!------------------Modals------------------------------->
+<div class="modal fade" id="deleteAdmin" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="fa fa-trash text-danger"></i> Delete Admin User
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Admin User?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a href="#" id="adminRecord" class="btn btn-danger"><span class="text-white">Delete</span></a>
+            </div>
+        </div>
     </div>
 </div>
