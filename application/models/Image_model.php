@@ -21,15 +21,30 @@ class Image_model extends MY_Model {
         return $this->insert($this->building_image_table, $data);
     }
 
+    public function update($data, $where) {
+        return $this->edit($this->table, $data, $where);
+    }
+
+    public function delete_image($image_id) {
+        $tables = array($this->image_table);
+        $where = array(
+            'image_id' => $image_id
+        );
+        return $this->delete($tables, $where);
+    }
+
+    public function get_image($image_id) {
+        $query = $this->db->select('*')
+        ->from($this->image_table)
+        ->where('image_id', $image_id)
+        ->get();
+        return $query->row();
+    }
+
     public function get_building_images($building_id) {
         $sql = "SELECT b.building_image_id, b.building_id, b.image_id, i.url FROM tbl_building_image b INNER JOIN tbl_image i 
             ON b.image_id=i.image_id WHERE b.building_id = " . $building_id;
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-
-    public function update($data, $where) {
-        return $this->edit($this->table, $data, $where);
-    }
-
 }

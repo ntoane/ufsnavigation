@@ -40,8 +40,8 @@
     .card {
         border-radius: 0px;
         border-top: 3px solid #4C71DE;
-;
     }
+    
     </style>
 
 </head>
@@ -106,11 +106,11 @@
                 <div id="collapseParking" class="collapse" aria-labelledby="headingParking" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Car Parkings:</h6>
-                        <a class="collapse-item" href="buttons.html">Parkings List</a>
-                        <a class="collapse-item" href="cards.html">New Parking</a>
+                        <a class="collapse-item" href="#">Parkings List</a>
+                        <a class="collapse-item" href="#">New Parking</a>
                         <h6 class="collapse-header">Wheelchair Parkings:</h6>
-                        <a class="collapse-item" href="buttons.html">Parkings List</a>
-                        <a class="collapse-item" href="cards.html">New Parking</a>
+                        <a class="collapse-item" href="#">Parkings List</a>
+                        <a class="collapse-item" href="#">New Parking</a>
                     </div>
                 </div>
             </li>
@@ -125,7 +125,7 @@
 
                 <!-- Events calendar Nav Item - Page -->
                 <li class="nav-item <?= ($this->uri->segment(1) == 'event') ? ' active' : ''; ?>">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Events Management</span></a>
             </li>
@@ -140,11 +140,11 @@
                 <div id="collapseTime" class="collapse" aria-labelledby="headingTime" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manage Timetables:</h6>
-                        <a class="collapse-item" href="buttons.html">Timetables</a>
-                        <a class="collapse-item" href="cards.html">New Timetable</a>
+                        <a class="collapse-item" href="#">Timetables</a>
+                        <a class="collapse-item" href="#">New Timetable</a>
                         <h6 class="collapse-header">Manage Modules:</h6>
-                        <a class="collapse-item" href="buttons.html">Modules List</a>
-                        <a class="collapse-item" href="cards.html">New Modules</a>
+                        <a class="collapse-item" href="#">Modules List</a>
+                        <a class="collapse-item" href="#">New Modules</a>
                     </div>
                 </div>
             </li>
@@ -171,8 +171,8 @@
                         <a class="collapse-item" href="<?=base_url() . 'admin'?>">Users List</a>
                         <a class="collapse-item" href="<?=base_url() . 'admin/create'?>">Register User</a>
                         <h6 class="collapse-header">Students Accounts:</h6>
-                        <a class="collapse-item" href="login.html">Students List</a>
-                        <a class="collapse-item" href="register.html">Register Student</a>
+                        <a class="collapse-item" href="#">Students List</a>
+                        <a class="collapse-item" href="#">Register Student</a>
                     </div>
                 </div>
             </li>
@@ -341,6 +341,12 @@ $('#deleteAdmin').on('show.bs.modal', function(event) {
 $('#deleteBuilding').on('show.bs.modal', function(event) {
     let buildingRecord = $(event.relatedTarget).data('recordid');
     $("#buildingRecord").attr("href", "<?=base_url() . 'building/delete/'?>" + buildingRecord);
+});
+
+$('#removeImage').on('show.bs.modal', function(event) {
+    let imageID = $(event.relatedTarget).data('recordid');
+    let buildingID = $(event.relatedTarget).data('recordid1');
+    $("#imageRecord").attr("href", "<?=base_url() . 'building/remove_image/'?>" + imageID  + '/' + buildingID);
 });
 
 </script>

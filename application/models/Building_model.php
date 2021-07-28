@@ -26,6 +26,14 @@ class Building_model extends MY_Model {
         return $this->delete($tables, $where);
     }
 
+    public function get_building($building_id) {
+        $query = $this->db->select('*')
+        ->from($this->table)
+        ->where('Building_id', $building_id)
+        ->get();
+        return $query->row();
+    }
+
     public function get_buildings() {
         $query = $this->db->select('*')
         ->from($this->table)

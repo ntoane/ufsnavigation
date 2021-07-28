@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label for="name"><strong>Building Name</strong></label>
-                    <input type="text" name="name" class="form-control" required />
+                    <input type="text" name="name"  class="form-control" required />
                 </div>
             </div>
             <div class="row">
@@ -40,7 +40,7 @@
             </div>
             <div class="col" >
                 <h6>Upload images(<small>you can select multiple images at once</small>)</h6>
-                <input type='file' name='files[]' multiple="">
+                <input class="mt-2" type='file' name='files[]' multiple="">
                 <!-- <div class="dropzone" id="my-dropzone" name="mainFileUploader">
                     <div class="fallback">
                         <input name="files[]" type="file" multiple />
