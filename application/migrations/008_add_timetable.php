@@ -43,9 +43,9 @@ class Migration_Add_timetable extends CI_Migration {
         ));
 
         $this->dbforge->add_key('timetable_id', true);
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (std_number) REFERENCES tbl_student(std_number)');
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (room_id) REFERENCES tbl_room(room_id)');
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (module_code) REFERENCES tbl_module(module_code)');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (std_number) REFERENCES tbl_student(std_number) ON DELETE CASCADE');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (room_id) REFERENCES tbl_room(room_id) ON DELETE CASCADE');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (module_code) REFERENCES tbl_module(module_code) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_timetable');
     }
 

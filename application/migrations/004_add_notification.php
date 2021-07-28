@@ -31,8 +31,8 @@ class Migration_Add_notification extends CI_Migration {
         ));
 
         $this->dbforge->add_key('notification_id', true);
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (calendar_id) REFERENCES tbl_calendar(calendar_id)');
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (std_number) REFERENCES tbl_student(std_number)');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (calendar_id) REFERENCES tbl_calendar(calendar_id) ON DELETE CASCADE');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (std_number) REFERENCES tbl_student(std_number) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_notification');
     }
 

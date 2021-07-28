@@ -35,7 +35,7 @@ class Migration_Add_room extends CI_Migration {
         ));
 
         $this->dbforge->add_key('room_id', true);
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (building_id) REFERENCES tbl_building(building_id)');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (building_id) REFERENCES tbl_building(building_id) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_room');
     }
 

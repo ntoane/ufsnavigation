@@ -62,21 +62,21 @@
 
 
 <!------------------Modals------------------------------->
-<div class="modal fade" id="deleteAdmin" tabindex="-1" role="dialog">
+<div class="modal fade" id="deleteBuilding" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-confirm">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="icon-box">
-                    <i class="fa fa-trash text-danger"></i> Delete Admin User
+                    <i class="fa fa-trash text-danger"></i> Delete Building Data
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this Admin User?</p>
+                <p>Are you sure you want to delete this Building data?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <a href="#" id="adminRecord" class="btn btn-danger"><span class="text-white">Delete</span></a>
+                <a href="#" id="buildingRecord" class="btn btn-danger"><span class="text-white">Delete</span></a>
             </div>
         </div>
     </div>

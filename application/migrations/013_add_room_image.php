@@ -26,8 +26,8 @@ class Migration_Add_room_image extends CI_Migration {
         ));
 
         $this->dbforge->add_key('room_image_id', true);
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (room_id) REFERENCES tbl_room(room_id)');
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (image_id) REFERENCES tbl_image(image_id)');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (room_id) REFERENCES tbl_room(room_id) ON DELETE CASCADE');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (image_id) REFERENCES tbl_image(image_id) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_room_image');
     }
 

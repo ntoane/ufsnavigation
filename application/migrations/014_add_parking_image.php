@@ -26,8 +26,8 @@ class Migration_Add_parking_image extends CI_Migration {
         ));
 
         $this->dbforge->add_key('parking_image_id', true);
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (parking_id) REFERENCES tbl_parking(parking_id)');
-        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (image_id) REFERENCES tbl_image(image_id)');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (parking_id) REFERENCES tbl_parking(parking_id) ON DELETE CASCADE');
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (image_id) REFERENCES tbl_image(image_id) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_parking_image');
     }
 
