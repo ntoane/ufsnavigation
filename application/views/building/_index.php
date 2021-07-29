@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="<?=base_url() . 'dashboard';?>">Dashboard</a>
+        <a href="<?=base_url() . 'building';?>">Dashboard</a>
     </li>
     <li class="breadcrumb-item active">Buildings</li>
 </ol>
@@ -32,14 +32,17 @@
                     <tr>
                         <td><?= $building['building_name']; ?></td>
                         <td>
-                            <a target="_blank" href="<?= 'https://maps.google.com/?q='.$building['lat_coordinate'] . ',' . $building['lon_coordinate']; ?>"><?= $building['lat_coordinate'] . ',' . $building['lon_coordinate']; ?></a>
+                            <a target="_blank" href="<?= 'https://www.google.com/maps/@?api=1&map_action=map&center='.$building['lat_coordinate'] . ',' . $building['lon_coordinate'] .'&zoom=18&basemap=satellite'; ?>">
+                            <?= $building['lat_coordinate'] . ',' . $building['lon_coordinate']; ?></a>
                         </td>
                         <td><?= $building['description']; ?></td>
                         <td>
                             <?php 
                                 $images = $this->image->get_building_images($building['building_id']);
                                 foreach($images as $image) {
-                                    echo $image['url'] . ',';
+                                ?>
+                                    <a target="_blank" href="<?=base_url().'uploads/buildings/'.$image['url'];?>" ><?=$image['url']?></a> <br>
+                                <?php
                                 }
                             ?>
                         </td>

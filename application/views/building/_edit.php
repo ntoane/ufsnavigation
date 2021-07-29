@@ -1,9 +1,9 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="<?=base_url() . 'dashboard';?>">Dashboard</a>
+        <a href="<?=base_url() . 'building';?>">Buildings</a>
     </li>
-    <li class="breadcrumb-item active">Buildings</li>
+    <li class="breadcrumb-item active">Edit building</li>
 </ol>
 
 <div class="card shadow-sm mb-2">
@@ -48,7 +48,9 @@
                         ?>
                         <div class="col-4">
                             <div>
-                                <img class="rounded mx-auto d-block mt-2" src="<?= base_url() . 'uploads/buildings/' . $image['url'];?>" width="130" height="120">
+                                <a target="_blank" href="<?=base_url().'uploads/buildings/'.$image['url'];?>"> 
+                                    <img class="rounded mx-auto d-block mt-2" src="<?= base_url() . 'uploads/buildings/' . $image['url'];?>" width="130" height="120">
+                                </a>
                             </div>
                             <div class="mt-1 text-center">
                             <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#removeImage" 

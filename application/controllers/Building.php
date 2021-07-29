@@ -39,20 +39,21 @@ class Building extends CI_Controller {
                     //prepare to upload and insert new images
                     $upload_errors = [];
                     $image_names = array();
+                    $array_files = $_FILES['files']['name'];
                     $count = count($_FILES['files']['name']);
                   
                     for($i=0;$i<$count;$i++){
                   
-                      if(!empty($_FILES['files']['name'][$i])){
+                      if(!empty($array_files)){
                         //set preferences
                         $config['upload_path'] = './uploads/buildings/'; 
                         $config['allowed_types'] = 'jpg|jpeg|png|gif';
                         $config['max_size'] = '5000';
+
                         //prefix with time to avoid clashes and replace blank with _ char
                         $image_name = time().'_'.str_replace(' ', '_', $_FILES['files']['name'][$i]);
-                        $config['file_name'] = $image_name;
-                  
-                        $_FILES['file']['name'] = $_FILES['files']['name'][$i];
+
+                        $_FILES['file']['name'] = $image_name;
                         $_FILES['file']['type'] = $_FILES['files']['type'][$i];
                         $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
                         $_FILES['file']['error'] = $_FILES['files']['error'][$i];
@@ -150,13 +151,12 @@ class Building extends CI_Controller {
                     $config['max_size'] = '5000';
                     //prefix with time to avoid clashes and replace blank with _ char
                     $image_name = time().'_'.str_replace(' ', '_', $_FILES['files']['name'][$i]);
-                    $config['file_name'] = $image_name;
-                
-                    $_FILES['file']['name'] = $_FILES['files']['name'][$i];
+
+                    $_FILES['file']['name'] = $image_name;
                     $_FILES['file']['type'] = $_FILES['files']['type'][$i];
                     $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
                     $_FILES['file']['error'] = $_FILES['files']['error'][$i];
-                    $_FILES['file']['size'] = $_FILES['files']['size'][$i]; 
+                    $_FILES['file']['size'] = $_FILES['files']['size'][$i];
 
                     //load upload class library
                     $this->load->library('upload',$config);
@@ -269,7 +269,7 @@ class Building extends CI_Controller {
                         if($this->image->delete_image($delete_image['image_id'])) {
                             //Also delete file from directory
                             $file_to_delete = $this->image->get_image($delete_image['image_id']);
-                            $path = '../../uploads/buildings' . $file_to_delete->url;
+                            $path = base_url() . 'uploads/buildings' . $file_to_delete->url;
                             // echo $path;
                             unlink($path);
                         }

@@ -1,9 +1,9 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="<?=base_url() . 'dashboard';?>">Dashboard</a>
+        <a href="<?=base_url() . 'building';?>">Buildings</a>
     </li>
-    <li class="breadcrumb-item active">Buildings</li>
+    <li class="breadcrumb-item active">Add building</li>
 </ol>
 
 <div class="card shadow-sm mb-2">
@@ -19,6 +19,7 @@
                     <input type="text" name="name"  class="form-control" required />
                 </div>
             </div>
+            You can click <a href="https://www.google.com/maps/@?api=1&map_action=map&center=-29.107279, 26.187364&zoom=18&basemap=satellite" target="_blank">here</a> to load Google maps
             <div class="row">
                 <div class="form-group col-md-12">
                     <label for="lat"><strong>Latitude</strong></label>
