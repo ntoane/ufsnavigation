@@ -111,6 +111,9 @@
                         <h6 class="collapse-header">Wheelchair Parkings:</h6>
                         <a class="collapse-item" href="#">Parkings List</a>
                         <a class="collapse-item" href="#">New Parking</a>
+                        <h6 class="collapse-header">Parking Categories:</h6>
+                        <a class="collapse-item" href="<?= base_url() . 'parking'; ?>">Categories List</a>
+                        <a class="collapse-item" href="<?= base_url() . 'parking/create_cat'; ?>">New Category</a>
                     </div>
                 </div>
             </li>
@@ -347,6 +350,11 @@ $('#removeImage').on('show.bs.modal', function(event) {
     let imageID = $(event.relatedTarget).data('recordid');
     let buildingID = $(event.relatedTarget).data('recordid1');
     $("#imageRecord").attr("href", "<?=base_url() . 'building/remove_image/'?>" + imageID  + '/' + buildingID);
+});
+
+$('#deleteParkingCategory').on('show.bs.modal', function(event) {
+    let catRecord = $(event.relatedTarget).data('recordid');
+    $("#parkingCategoryRecord").attr("href", "<?=base_url() . 'parking/delete_cat/'?>" + catRecord);
 });
 
 </script>
