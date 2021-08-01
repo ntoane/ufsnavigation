@@ -15,20 +15,20 @@
             <div class="col">
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label for="name"><strong>Building Name</strong></label>
+                    <label for="name"><strong>Building Name<span class="text-danger">*</span></strong></label>
                     <input type="text" name="name"  class="form-control" required />
                 </div>
             </div>
             You can click <a href="https://www.google.com/maps/@?api=1&map_action=map&center=-29.107279, 26.187364&zoom=18&basemap=satellite" target="_blank">here</a> to load Google maps
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label for="lat"><strong>Latitude</strong></label>
+                    <label for="lat"><strong>Latitude<span class="text-danger">*</span></strong></label>
                     <input type="text" name="lat" class="form-control" required />
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label for="lon"><strong>Longitude</strong></label>
+                    <label for="lon"><strong>Longitude<span class="text-danger">*</span></strong></label>
                     <input type="text" name="lon" class="form-control" required />
                 </div>
             </div>

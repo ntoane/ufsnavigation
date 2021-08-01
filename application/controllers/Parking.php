@@ -100,24 +100,44 @@ class Parking extends CI_Controller {
 
     /***********************Parking Category ends***************************/
 
-    /***********************Car Parking Starts***************************/
-    public function create() {
+    /***********************Parking Starts***************************/
+    public function load_car_parkings() {
         if (_is_user_login($this)) {
-            if ($this->input->post('submit_building')) {
-                $name = $this->input->post('name');
+            $data['car_parkings'] = $this->parking->get_car_parkings();
+            $data['view'] = 'parking/_car_parkings.php';
+            $this->load->view('_layout.php', $data);
+        }
+    }
+
+    public function load_wheelchair_parkings() {
+        if (_is_user_login($this)) {
+            $data['wheelchair_parkings'] = $this->parking->get_wheelchair_parkings();
+            $data['view'] = 'parking/_wheelchair_parkings.php';
+            $this->load->view('_layout.php', $data);
+        }
+    }
+
+    public function create_parking() {
+        if (_is_user_login($this)) {
+            if ($this->input->post('submit_parking')) {
+                $cat_id = $this->input->post('cat_id');
+                $parking_type = $this->input->post('parking_type');
+                $parking_name = $this->input->post('parking_name');
                 $latitute = floatval($this->input->post('lat'));
                 $longitude = floatval($this->input->post('lon'));
                 $description = $this->input->post('description');
 
-                $data_building = array(
-                    'building_name' => $name,
+                $data_parking = array(
+                    'cat_id' => $cat_id,
+                    'parking_name' => $parking_name,
+                    'parking_type' => $parking_type,
                     'lat_coordinate' => $latitute,
                     'lon_coordinate' => $longitude,
                     'description' => $description
                 );
 
-                $building_id = $this->building->add_building($data_building);
-                if ($building_id > 0) {
+                $parking_id = $this->parking->add_parking($data_parking);
+                if ($parking_id > 0) {
 
                     //prepare to upload and insert new images
                     $upload_errors = [];
@@ -129,7 +149,7 @@ class Parking extends CI_Controller {
                   
                       if(!empty($array_files)){
                         //set preferences
-                        $config['upload_path'] = './uploads/buildings/'; 
+                        $config['upload_path'] = './uploads/parkings/'; 
                         $config['allowed_types'] = 'jpg|jpeg|png|gif';
                         $config['max_size'] = '5000';
 
@@ -164,8 +184,8 @@ class Parking extends CI_Controller {
                             if($image_id < 1 ) {
                                 $no_errors = false;
                             }else { 
-                                $building_image_id = $this->image->add_building_image(['building_id' => $building_id, 'image_id' => $image_id]);
-                                if($building_image_id < 1  ) {
+                                $parking_image_id = $this->image->add_parking_image(['parking_id' => $parking_id, 'image_id' => $image_id]);
+                                if($parking_image_id < 1  ) {
                                     $no_errors = false;
                                 } 
                             }
@@ -174,11 +194,11 @@ class Parking extends CI_Controller {
                         if($no_errors) {
                             $this->session->set_flashdata('type', 'success');
                             $this->session->set_flashdata('title', 'Success');
-                            $this->session->set_flashdata('text', 'Building data successfully added'); 
+                            $this->session->set_flashdata('text', 'Parking data successfully added'); 
                         } else {
                             $this->session->set_flashdata('type', 'danger');
                             $this->session->set_flashdata('title', 'Error');
-                            $this->session->set_flashdata('text', 'Buiding data NOT inserted!!');
+                            $this->session->set_flashdata('text', 'Parking data NOT inserted!!');
                         }
                     } else {
                         $this->session->set_flashdata('type', 'danger');
@@ -189,35 +209,48 @@ class Parking extends CI_Controller {
                 } else {
                     $this->session->set_flashdata('type', 'danger');
                     $this->session->set_flashdata('title', 'Error');
-                    $this->session->set_flashdata('text', 'Error creating new building');
+                    $this->session->set_flashdata('text', 'Error creating new parking');
                 }
-                redirect('building');
+                if($parking_type == 'car') {
+                    redirect('parking/load_car_parkings');
+                } else {
+                    redirect('parking/load_wheelchair_parkings');
+                }
             } else {
-                $data['view'] = 'building/_create.php';
+                $data['parking_categories'] = $this->parking->get_parking_categories();
+                $data['view'] = 'parking/_create_parking.php';
                 $this->load->view('_layout.php', $data);
             }
         }
     }
 
-    public function edit() {
+    public function edit_parking() {
         if (_is_user_login($this)) {
         if ($this->input->post('update_building')) {
-            $building_id = $this->input->post('building_id');
-            $data_building = array(
-                'building_name' => ($this->input->post('name')),
-                'lat_coordinate' => floatval($this->input->post('lat')),
-                'lon_coordinate' => floatval($this->input->post('lon')),
-                'description' => ($this->input->post('description'))
+            $parking_id = $this->input->post('parking_id');
+            $cat_id = $this->input->post('cat_id');
+            $parking_type = $this->input->post('parking_type');
+            $parking_name = $this->input->post('parking_name');
+            $latitute = floatval($this->input->post('lat'));
+            $longitude = floatval($this->input->post('lon'));
+            $description = $this->input->post('description');
+            $data_parking = array(
+                'cat_id' => $cat_id,
+                'parking_name' => $parking_name,
+                'parking_type' => $parking_type,
+                'lat_coordinate' => $latitute,
+                'lon_coordinate' => $longitude,
+                'description' => $description
             );
             $where = array(
-                'building_id' => $building_id
+                'parking_id' => $parking_id
             );
 
             //update any changes for a building
-            $building_update_id = $this->building->update($data_building, $where);
-            $notify_building = false;
-            if($building_update_id > 0) {
-                $notify_building = true; //some changes made, will notify
+            $parking_update_id = $this->parking->update_parking($data_parking, $where);
+            $notify_parking = false;
+            if($parking_update_id > 0) {
+                $notify_parking = true; //some changes made, will notify
             }
 
             //prepare to upload any new uploaded images
@@ -229,7 +262,7 @@ class Parking extends CI_Controller {
             
                 if(!empty($_FILES['files']['name'][$i])){
                     //set preferences
-                    $config['upload_path'] = './uploads/buildings/'; 
+                    $config['upload_path'] = './uploads/parkings/'; 
                     $config['allowed_types'] = 'jpg|jpeg|png|gif';
                     $config['max_size'] = '5000';
                     //prefix with time to avoid clashes and replace blank with _ char
@@ -263,23 +296,23 @@ class Parking extends CI_Controller {
                     if($image_id < 1 ) {
                         $no_errors = false;
                     }else { 
-                        $building_image_id = $this->image->add_building_image(['building_id' => $building_id, 'image_id' => $image_id]);
-                        if($building_image_id < 1  ) {
+                        $parking_image_id = $this->image->add_parking_image(['parking_id' => $parking_id, 'image_id' => $image_id]);
+                        if($parking_image_id < 1  ) {
                             $no_errors = false;
                         } 
                     }
                 }
 
                 if($no_errors) {
-                    $notify_building = false; //This notification will cater for building aswell
+                    $notify_parking = false; //This notification will cater for building aswell
 
                     $this->session->set_flashdata('type', 'success');
                     $this->session->set_flashdata('title', 'Success');
-                    $this->session->set_flashdata('text', 'Building data updated successfully'); 
+                    $this->session->set_flashdata('text', 'Parking data updated successfully'); 
                 } else {
                     $this->session->set_flashdata('type', 'danger');
                     $this->session->set_flashdata('title', 'Error');
-                    $this->session->set_flashdata('text', 'Buiding data NOT updated!!');
+                    $this->session->set_flashdata('text', 'Parking data NOT updated!!');
                 }
             } else {
                 $this->session->set_flashdata('type', 'danger');
@@ -288,51 +321,54 @@ class Parking extends CI_Controller {
             }
 
             //notify if any changes made to building
-            if($notify_building) {
+            if($notify_parking) {
                 $this->session->set_flashdata('type', 'success');
                 $this->session->set_flashdata('title', 'Success');
-                $this->session->set_flashdata('text', 'Building data updated successfully');
+                $this->session->set_flashdata('text', 'Parking data updated successfully');
             }
-            redirect('building');
+            if($parking_type == 'car') {
+                redirect('parking/load_car_parkings');
+            } else {
+                redirect('parking/load_wheelchair_parkings');
+            }
         } else {
-            $building_id = ($this->uri->segment(3) > 0) ? $this->uri->segment(3) : 0;
-            if ($building_id > 0) {
-                $data['building'] = $this->building->get_building($building_id);
-                $data['building_images'] = $this->image->get_building_images($building_id);
-                $data['view'] = 'building/_edit.php';
+            $parking_id = ($this->uri->segment(3) > 0) ? $this->uri->segment(3) : 0;
+            if ($parking_id > 0) {
+                $data['parking'] = $this->parking->get_parking($parking_id);
+                $data['parking_images'] = $this->image->get_parking_images($parking_id);
+                $data['parking_categories'] = $this->parking->get_parking_categories();
+                $data['view'] = 'parking/_edit_parking.php';
                 $this->load->view('_layout.php', $data);
             } else {
-                redirect('building');
+                redirect('parking/load_car_parkings');
             }
         }
         }
     }
 
-    public function delete() {
+    public function delete_parking() {
         if (_is_user_login($this)) {
-            $building_id = $this->uri->segment(3);
-            if ($building_id > 0) {
-                $id = $this->building->delete_building($building_id);
+            $parking_id = $this->uri->segment(3);
+            if ($parking_id > 0) {
+                $parking_images = $this->image->get_parking_images($parking_id);
     
-                if ($id > 0) {
+                if ($this->parking->delete_parking($parking_id)) {
                     //delete associated images
-                    $building_images = $this->image->get_building_images($building_id);
-                    foreach($building_images as $delete_image) {
+                    foreach($parking_images as $delete_image) {
                         $this->image->delete_image($delete_image['image_id']);
-                        echo ' ID: ' . $delete_image['image_id'];
                     }
                     
                     $this->session->set_flashdata('type', 'success');
                     $this->session->set_flashdata('title', 'Success');
-                    $this->session->set_flashdata('text', 'Building data deleted Successfully');
+                    $this->session->set_flashdata('text', 'Parking data deleted Successfully');
                 } else {
                     $this->session->set_flashdata('type', 'danger');
                     $this->session->set_flashdata('title', 'Error');
-                    $this->session->set_flashdata('text', 'Error deleteng building');
+                    $this->session->set_flashdata('text', 'Error deleteng Parking');
                 }
-                redirect('building');
+                redirect('parking/load_car_parkings');
             }else {
-                redirect('building');
+                redirect('parking/load_car_parkings');
             }
       }
     }
@@ -340,38 +376,30 @@ class Parking extends CI_Controller {
     public function remove_image() {
         if (_is_user_login($this)) {
             $image_id = $this->uri->segment(3);
-            $building_id = $this->uri->segment(4);
+            $parking_id = $this->uri->segment(4);
             if ($image_id > 0) {
-                $id = $this->image->delete_image($image_id);
+                $parking_image = $this->image->get_image($image_id);
     
-                if ($id > 0) {
-                    //successfully deleted image, load building data
-                    $building_images = $this->image->get_building_images($building_id);
-                    foreach($building_images as $delete_image) {
-                        //delete frile from database
-                        if($this->image->delete_image($delete_image['image_id'])) {
-                            //Also delete file from directory
-                            $file_to_delete = $this->image->get_image($delete_image['image_id']);
-                            $path = base_url() . 'uploads/buildings' . $file_to_delete->url;
-                            // echo $path;
-                            unlink($path);
-                        }
-                    }
+                if ($this->image->delete_image($image_id)) {
+                    //successfully deleted image from DB, now delete from file directory
+                    $path = base_url() . 'uploads/parkings' . $parking_image->url;
+                    // echo $path;
+                    unlink($path);
                     
                     $this->session->set_flashdata('type', 'success');
                     $this->session->set_flashdata('title', 'Success');
-                    $this->session->set_flashdata('text', 'Building Image deleted Successfully');
+                    $this->session->set_flashdata('text', 'Parking Image deleted Successfully');
                 } else {
                     $this->session->set_flashdata('type', 'danger');
                     $this->session->set_flashdata('title', 'Error');
-                    $this->session->set_flashdata('text', 'Error deleteng building');
+                    $this->session->set_flashdata('text', 'Error deleteng Parking');
                 }
-                redirect('building/edit/' . $building_id);
+                redirect('parking/edit_parking/' . $parking_id);
             }else {
-                redirect('building/edit/' . $building_id);
+                redirect('parking/edit_parking/' . $parking_id);
             }
       }
     }
 
-    /***********************Car Parking ends***************************/
+    /***********************Parking ends***************************/
 }

@@ -58,4 +58,28 @@ class Parking_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function get_parking($parking_id) {
+        $query = $this->db->select('*')
+        ->from($this->parking)
+        ->where('parking_id', $parking_id)
+        ->get();
+        return $query->row();
+    }
+
+    public function get_car_parkings() {
+        $query = $this->db->select('*')
+        ->from($this->parking)
+        ->where('parking_type', 'car')
+        ->get();
+        return $query->result_array();
+    }
+
+    public function get_wheelchair_parkings() {
+        $query = $this->db->select('*')
+        ->from($this->parking)
+        ->where('parking_type', 'wheelchair')
+        ->get();
+        return $query->result_array();
+    }
+
 }

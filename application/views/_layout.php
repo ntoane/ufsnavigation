@@ -106,11 +106,11 @@
                 <div id="collapseParking" class="collapse" aria-labelledby="headingParking" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Car Parkings:</h6>
-                        <a class="collapse-item" href="#">Parkings List</a>
-                        <a class="collapse-item" href="#">New Parking</a>
+                        <a class="collapse-item" href="<?= base_url() . 'parking/load_car_parkings'; ?>">Parkings List</a>
+                        <a class="collapse-item" href="<?= base_url() . 'parking/create_parking'; ?>">New Parking</a>
                         <h6 class="collapse-header">Wheelchair Parkings:</h6>
-                        <a class="collapse-item" href="#">Parkings List</a>
-                        <a class="collapse-item" href="#">New Parking</a>
+                        <a class="collapse-item" href="<?= base_url() . 'parking/load_wheelchair_parkings'; ?>">Parkings List</a>
+                        <a class="collapse-item" href="<?= base_url() . 'parking/create_parking'; ?>">New Parking</a>
                         <h6 class="collapse-header">Parking Categories:</h6>
                         <a class="collapse-item" href="<?= base_url() . 'parking'; ?>">Categories List</a>
                         <a class="collapse-item" href="<?= base_url() . 'parking/create_cat'; ?>">New Category</a>
@@ -355,6 +355,17 @@ $('#removeImage').on('show.bs.modal', function(event) {
 $('#deleteParkingCategory').on('show.bs.modal', function(event) {
     let catRecord = $(event.relatedTarget).data('recordid');
     $("#parkingCategoryRecord").attr("href", "<?=base_url() . 'parking/delete_cat/'?>" + catRecord);
+});
+
+$('#deleteParking').on('show.bs.modal', function(event) {
+    let parkingRecord = $(event.relatedTarget).data('recordid');
+    $("#parkingRecord").attr("href", "<?=base_url() . 'parking/delete_parking/'?>" + parkingRecord);
+});
+
+$('#removeParkingImage').on('show.bs.modal', function(event) {
+    let imageID = $(event.relatedTarget).data('recordid');
+    let parkingID = $(event.relatedTarget).data('recordid1');
+    $("#imageRecord").attr("href", "<?=base_url() . 'parking/remove_image/'?>" + imageID  + '/' + parkingID);
 });
 
 </script>
