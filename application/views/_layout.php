@@ -24,6 +24,9 @@
     <!--Data Table export files-->
     <link href="<?=base_url();?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-----------------Datepicker---------------------------------------->
+    <link href="<?= base_url(); ?>vendor/gijgo-combined-1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
     <!---------Dropzone--------------------------->
     <link href="<?=base_url();?>vendor/dropzone-5.7.0/dist/min/dropzone.min.css" rel="stylesheet">
 
@@ -126,11 +129,22 @@
                 Events & Timetable
             </div>
 
-                <!-- Events calendar Nav Item - Page -->
-                <li class="nav-item <?= ($this->uri->segment(1) == 'event') ? ' active' : ''; ?>">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Events Management</span></a>
+            <!-- Events calendar Nav Item - Page -->
+            <li class="nav-item <?= ($this->uri->segment(1) == 'event') ? ' active' : ''; ?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEvent"
+                    aria-expanded="true" aria-controls="collapseBuilding">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Events Management</span>
+                </a>
+                <div id="collapseEvent" class="collapse" aria-labelledby="headingBuilding" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Manage Events:</h6>
+                        <a class="collapse-item" href="<?= base_url() . 'event'; ?>">Events List</a>
+                        <a class="collapse-item" href="<?= base_url() . 'event/upcoming'; ?>">Upcoming Events</a>
+                        <a class="collapse-item" href="<?= base_url() . 'event/past'; ?>">Past Events</a>
+                        <a class="collapse-item" href="<?= base_url() . 'event/create'; ?>">New Event</a>
+                    </div>
+                </div>
             </li>
 
              <!-- Timetable Nav Item- Pages Collapse Menu -->
@@ -333,6 +347,14 @@
     <script src="<?=base_url();?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="<?=base_url();?>assets/js/demo/datatables-demo.js"></script>
 
+    <!--Date-picker-->
+    <script src="<?= base_url(); ?>vendor/gijgo-combined-1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <script>
+    $('#timepicker1').timepicker();
+    $('#timepicker2').timepicker();
+    $('#datepicker').datepicker({footer: true, modal: true, header: true, format: 'yyyy-mm-dd'});
+    </script>
+
 
 <!-----------------Handle confirmations from modals------------------------->
 <script>
@@ -366,6 +388,11 @@ $('#removeParkingImage').on('show.bs.modal', function(event) {
     let imageID = $(event.relatedTarget).data('recordid');
     let parkingID = $(event.relatedTarget).data('recordid1');
     $("#imageRecord").attr("href", "<?=base_url() . 'parking/remove_image/'?>" + imageID  + '/' + parkingID);
+});
+
+$('#deleteEvent').on('show.bs.modal', function(event) {
+    let eventRecord = $(event.relatedTarget).data('recordid');
+    $("#eventRecord").attr("href", "<?=base_url() . 'event/delete/'?>" + eventRecord);
 });
 
 </script>
