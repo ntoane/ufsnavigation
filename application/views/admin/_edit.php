@@ -3,7 +3,7 @@
     <li class="breadcrumb-item">
         <a href="<?=base_url() . 'admin';?>">Admins</a>
     </li>
-    <li class="breadcrumb-item active">Create Admin Account</li>
+    <li class="breadcrumb-item active">Update Admin Account</li>
 </ol>
 
 <div class="card shadow-sm mb-2">

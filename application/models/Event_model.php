@@ -60,4 +60,13 @@ class Event_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function get_events_by_dates($start, $end) {
+        $query = $this->db->select('*')
+        ->from($this->table)
+        ->where('event_date >=', $start)
+        ->where('event_date <=', $end)
+        ->get();
+        return $query->result_array();
+    }
+
 }

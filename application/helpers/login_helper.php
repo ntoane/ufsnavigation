@@ -65,3 +65,20 @@ if (!function_exists('_get_user_redirect')) {
     }
 
 }
+
+if (!function_exists('_generate_code')) {
+
+    function _generate_code()
+    {
+        // $permitted_chars = "0123456789";
+        // $length = strlen($permitted_chars);
+        // $key = '';
+        // for ($i = 0; $i < 5; $i++) {
+        //     $random_char = $permitted_chars[mt_rand(0, $length - 1)];
+        //     $key .= $random_char;
+        // }
+        $key = '12345';
+        return $key;
+    }
+
+}

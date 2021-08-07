@@ -11,6 +11,11 @@ class Migration_Add_student extends CI_Migration {
                 'constraint' => 11,
                 'unsigned' => true
             ),
+            'password' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => false,
+            ),
             'std_fname' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '50',

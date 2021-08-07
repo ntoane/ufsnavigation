@@ -11,25 +11,59 @@ class Event extends CI_Controller {
 
     public function index() {
         if (_is_user_login($this)) {
-        $data['events'] = $this->event->get_events();
-        $data['view'] = 'event/_index.php';
-        $this->load->view('_layout.php', $data);
+            $data['events'] = $this->event->get_events();
+            $data['view'] = 'event/_index.php';
+            $this->load->view('_layout.php', $data);
         }
     }
 
     public function upcoming() {
         if (_is_user_login($this)) {
-        $data['events'] = $this->event->get_upcoming_events();
-        $data['view'] = 'event/_upcoming.php';
-        $this->load->view('_layout.php', $data);
+            $data['events'] = $this->event->get_upcoming_events();
+            $data['view'] = 'event/_upcoming.php';
+            $this->load->view('_layout.php', $data);
         }
     }
 
     public function past() {
         if (_is_user_login($this)) {
-        $data['events'] = $this->event->get_past_events();
-        $data['view'] = 'event/_past.php';
-        $this->load->view('_layout.php', $data);
+            $data['events'] = $this->event->get_past_events();
+            $data['view'] = 'event/_past.php';
+            $this->load->view('_layout.php', $data);
+        }
+    }
+
+    public function get_events()
+    {
+        if (_is_user_login($this)) {
+            // Our Start and End Dates
+            $start = $this->input->get("start");
+            $end = $this->input->get("end");
+    
+            $startdt = new DateTime('now'); // setup a local datetime
+            $startdt->setTimestamp($start); // Set the date based on timestamp
+            $start_format = $startdt->format('Y-m-d');
+    
+            $enddt = new DateTime('now'); // setup a local datetime
+            $enddt->setTimestamp($end); // Set the date based on timestamp
+            $end_format = $enddt->format('Y-m-d');
+    
+            $events = $this->event->get_events_by_dates($start_format, $end_format);
+    
+            $data_events = array();
+    
+            foreach($events as $r) {
+                $data_events[] = array(
+                    "id" => $r['calendar_id'],
+                    "title" => $r['event_name'],
+                    "start" => $r['start_time'],
+                    "end" => $r['end_time'],
+                    "event_date" => $r['event_date']
+                );
+            }
+
+            echo json_encode(array("events" => $data_events));
+            exit();
         }
     }
 

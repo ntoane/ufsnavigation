@@ -176,7 +176,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($this->uri->segment(1) == 'admin') ? ' active' : ''; ?>">
+            <li class="nav-item <?= ($this->uri->segment(1) == 'admin' || 'student') ? ' active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users"></i>
@@ -188,8 +188,8 @@
                         <a class="collapse-item" href="<?=base_url() . 'admin'?>">Users List</a>
                         <a class="collapse-item" href="<?=base_url() . 'admin/create'?>">Register User</a>
                         <h6 class="collapse-header">Students Accounts:</h6>
-                        <a class="collapse-item" href="#">Students List</a>
-                        <a class="collapse-item" href="#">Register Student</a>
+                        <a class="collapse-item" href="<?= base_url() . 'student'?>">Students List</a>
+                        <a class="collapse-item" href="<?= base_url() . 'student/create'?>">Register Student</a>
                     </div>
                 </div>
             </li>
@@ -355,6 +355,31 @@
     $('#datepicker').datepicker({footer: true, modal: true, header: true, format: 'yyyy-mm-dd'});
     </script>
 
+<!------------------------Calendar event source to grab events--------------------->
+    <script>
+    $('#calendar').fullCalendar({
+        eventSources: [
+            {
+                events: function(start, end, timezone, callback) {
+                    $.ajax({
+                    url: '<?= base_url() ?>event/get_events',
+                    dataType: 'json',
+                    data: {
+                    // our hypothetical feed requires UNIX timestamps
+                    start: start.unix(),
+                    end: end.unix()
+                    },
+                    success: function(msg) {
+                        var events = msg.events;
+                        callback(events);
+                    }
+                    });
+                }
+            },
+        ]
+    });
+    </script>
+
 
 <!-----------------Handle confirmations from modals------------------------->
 <script>
@@ -393,6 +418,11 @@ $('#removeParkingImage').on('show.bs.modal', function(event) {
 $('#deleteEvent').on('show.bs.modal', function(event) {
     let eventRecord = $(event.relatedTarget).data('recordid');
     $("#eventRecord").attr("href", "<?=base_url() . 'event/delete/'?>" + eventRecord);
+});
+
+$('#deleteStudent').on('show.bs.modal', function(event) {
+    let studentRecord = $(event.relatedTarget).data('recordid');
+    $("#studentRecord").attr("href", "<?=base_url() . 'student/delete/'?>" + studentRecord);
 });
 
 </script>
