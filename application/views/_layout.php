@@ -148,7 +148,7 @@
             </li>
 
              <!-- Timetable Nav Item- Pages Collapse Menu -->
-            <li class="nav-item <?= ($this->uri->segment(1) == 'timetable') ? ' active' : ''; ?>">
+            <li class="nav-item <?= ($this->uri->segment(1) == 'timetable' || $this->uri->segment(1) == 'module') ? ' active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTime"
                     aria-expanded="true" aria-controls="collapseTime">
                     <i class="fas fa-fw fa-cog"></i>
@@ -160,8 +160,8 @@
                         <a class="collapse-item" href="#">Timetables</a>
                         <a class="collapse-item" href="#">New Timetable</a>
                         <h6 class="collapse-header">Manage Modules:</h6>
-                        <a class="collapse-item" href="#">Modules List</a>
-                        <a class="collapse-item" href="#">New Modules</a>
+                        <a class="collapse-item" href="<?=base_url() . 'module'?>">Modules List</a>
+                        <a class="collapse-item" href="<?=base_url() . 'module/create'?>">New Modules</a>
                     </div>
                 </div>
             </li>
@@ -176,7 +176,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($this->uri->segment(1) == 'admin' || 'student') ? ' active' : ''; ?>">
+            <li class="nav-item <?= ($this->uri->segment(1) == 'admin' || $this->uri->segment(1) == 'student') ? ' active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users"></i>
@@ -423,6 +423,11 @@ $('#deleteEvent').on('show.bs.modal', function(event) {
 $('#deleteStudent').on('show.bs.modal', function(event) {
     let studentRecord = $(event.relatedTarget).data('recordid');
     $("#studentRecord").attr("href", "<?=base_url() . 'student/delete/'?>" + studentRecord);
+});
+
+$('#deleteModule').on('show.bs.modal', function(event) {
+    let moduleRecord = $(event.relatedTarget).data('recordid');
+    $("#moduleRecord").attr("href", "<?=base_url() . 'module/delete/'?>" + moduleRecord);
 });
 
 </script>
