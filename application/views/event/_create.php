@@ -14,26 +14,41 @@
 <form action="<?= base_url() . 'event/create' ?>" method="POST">
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="event_name"><strong>Event Name</strong></label>
+            <label for="event_name"><strong>Event Name<span class="text-danger">*</span></strong></label>
             <input type="text" name="event_name" class="form-control" required />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="event_date"><strong>Event Date</strong></label>
+            <label for="event_date"><strong>Event Date<span class="text-danger">*</span></strong></label>
             <input type="text" name="event_date" class="form-control" id="datepicker" value="Click to pick event date" required>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="start_time"><strong>Start Time</strong></label>
+            <label for="start_time"><strong>Start Time<span class="text-danger">*</span></strong></label>
             <input type="text" name="start_time" class="form-control" id="timepicker1" value="Click to pick start time" required />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="end_time"><strong>End Time</strong></label>
+            <label for="end_time"><strong>End Time<span class="text-danger">*</span></strong></label>
             <input type="text" name="end_time" class="form-control" id="timepicker2" value="Click to pick start time" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+                <label for="building_id"><strong>Venue<span class="text-danger">*</span></strong></label>
+                <select name="building_id" class="form-control" required="">
+                    <option value="" selected="" disabled="">Select venue</option>
+                    <?php
+                    foreach ($buildings as $building) {
+                        ?>
+                        <option value="<?=$building['building_id'];?>"><?=$building['building_name'];?></option>
+                        <?php
+                    }
+                    ?>
+            </select>
         </div>
     </div>
     <div class="row mt-4">

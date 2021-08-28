@@ -148,17 +148,14 @@
             </li>
 
              <!-- Timetable Nav Item- Pages Collapse Menu -->
-            <li class="nav-item <?= ($this->uri->segment(1) == 'timetable' || $this->uri->segment(1) == 'module') ? ' active' : ''; ?>">
+            <li class="nav-item <?= ($this->uri->segment(1) == 'module') ? ' active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTime"
                     aria-expanded="true" aria-controls="collapseTime">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Students Timetable</span>
+                    <span>Modules</span>
                 </a>
                 <div id="collapseTime" class="collapse" aria-labelledby="headingTime" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manage Timetables:</h6>
-                        <a class="collapse-item" href="#">Timetables</a>
-                        <a class="collapse-item" href="#">New Timetable</a>
                         <h6 class="collapse-header">Manage Modules:</h6>
                         <a class="collapse-item" href="<?=base_url() . 'module'?>">Modules List</a>
                         <a class="collapse-item" href="<?=base_url() . 'module/create'?>">New Modules</a>

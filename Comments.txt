@@ -1,0 +1,5 @@
+Parking should allow both car and wheelchair at same location -- Done
+
+Events remember to include select location -- Done
+
+Timetable should be build by the student only Admin should insert modules ---Done

@@ -7,6 +7,7 @@ class Event extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Event_model', 'event');
+        $this->load->model('Building_model', 'building');
     }
 
     public function index() {
@@ -74,7 +75,8 @@ class Event extends CI_Controller {
                 'event_name' => $this->input->post('event_name'),
                 'start_time' => $this->input->post('start_time'),
                 'end_time' => $this->input->post('end_time'),
-                'event_date' => $this->input->post('event_date')
+                'event_date' => $this->input->post('event_date'),
+                'building_id' => $this->input->post('building_id')
             );
             $id = $this->event->add_event($data_event);
             if ($id > 0) {
@@ -88,6 +90,7 @@ class Event extends CI_Controller {
             }
             redirect('event');
         } else {
+            $data['buildings'] = $this->building->get_buildings();
             $data['view'] = 'event/_create.php';
             $this->load->view('_layout.php', $data);
         }
@@ -101,7 +104,8 @@ class Event extends CI_Controller {
                 'event_name' => $this->input->post('event_name'),
                 'start_time' => $this->input->post('start_time'),
                 'end_time' => $this->input->post('end_time'),
-                'event_date' => $this->input->post('event_date')
+                'event_date' => $this->input->post('event_date'),
+                'building_id' => $this->input->post('building_id')
             );
             $where = array(
                 'calendar_id' => $this->input->post('calendar_id')
@@ -120,6 +124,7 @@ class Event extends CI_Controller {
         } else {
             $calendar_id = ($this->uri->segment(3) > 0) ? $this->uri->segment(3) : 0;
             if ($calendar_id > 0) {
+                $data['buildings'] = $this->building->get_buildings();
                 $data['event'] = $this->event->get_event($calendar_id);
                 $data['view'] = 'event/_edit.php';
                 $this->load->view('_layout.php', $data);

@@ -23,7 +23,7 @@ class Migration_Add_parking extends CI_Migration {
                 'null' => false,
             ),
             'parking_type' => array(
-                'type' => 'ENUM("car", "wheelchair")',
+                'type' => 'ENUM("car", "wheelchair", "both")',
                 'default' => 'car',
             ),
             'lat_coordinate' => array(

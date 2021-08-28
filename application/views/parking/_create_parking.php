@@ -31,7 +31,10 @@
             <div class="row">
             <div class="form-group col-md-12">
                 <div><strong>Please choose the parking type below<span class="text-danger">*</span></strong></div>
-                <input type="radio" name="parking_type" value="car" checked />
+                <input type="radio" name="parking_type" value="both" checked />
+                <label for="both_parking">Both car & wheelchair parking</label>
+                <br>
+                <input type="radio" name="parking_type" value="car" />
                 <label for="car_parking">Car parking</label>
                 <br>
                 <input type="radio" name="parking_type" value="wheelchair" />

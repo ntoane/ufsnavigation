@@ -35,7 +35,7 @@ class Event_model extends MY_Model {
     }
 
     public function get_events() {
-        $query = $this->db->select("calendar_id, event_name, DATE_FORMAT(start_time, '%k:%i') AS start_time, 
+        $query = $this->db->select("calendar_id, building_id, event_name, DATE_FORMAT(start_time, '%k:%i') AS start_time, 
         DATE_FORMAT(end_time, '%k:%i') AS end_time, event_date")
         ->from($this->table)
         ->get();
@@ -43,7 +43,7 @@ class Event_model extends MY_Model {
     }
 
     public function get_upcoming_events() {
-        $query = $this->db->select("calendar_id, event_name, DATE_FORMAT(start_time, '%k:%i') AS start_time, 
+        $query = $this->db->select("calendar_id, building_id, event_name, DATE_FORMAT(start_time, '%k:%i') AS start_time, 
         DATE_FORMAT(end_time, '%k:%i') AS end_time, event_date")
         ->from($this->table)
         ->where('event_date >=', date('Y-m-d'))
@@ -52,7 +52,7 @@ class Event_model extends MY_Model {
     }
 
     public function get_past_events() {
-        $query = $this->db->select("calendar_id, event_name, DATE_FORMAT(start_time, '%k:%i') AS start_time, 
+        $query = $this->db->select("calendar_id, building_id, event_name, DATE_FORMAT(start_time, '%k:%i') AS start_time, 
         DATE_FORMAT(end_time, '%k:%i') AS end_time, event_date")
         ->from($this->table)
         ->where('event_date <', date('Y-m-d'))

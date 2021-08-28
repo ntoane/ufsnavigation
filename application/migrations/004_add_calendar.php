@@ -12,6 +12,11 @@ class Migration_Add_calendar extends CI_Migration {
                 'unsigned' => true,
                 'auto_increment' => true,
             ),
+            'building_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+            ),
             'event_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '50',
@@ -33,6 +38,7 @@ class Migration_Add_calendar extends CI_Migration {
         ));
 
         $this->dbforge->add_key('calendar_id', true);
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (building_id) REFERENCES tbl_building(building_id) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_calendar');
     }
 

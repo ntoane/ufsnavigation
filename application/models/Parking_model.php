@@ -67,17 +67,19 @@ class Parking_model extends MY_Model {
     }
 
     public function get_car_parkings() {
+        $where = "parking_type = 'car' OR parking_type = 'both' ";
         $query = $this->db->select('*')
         ->from($this->parking)
-        ->where('parking_type', 'car')
+        ->where($where)
         ->get();
         return $query->result_array();
     }
 
     public function get_wheelchair_parkings() {
+        $where = "parking_type = 'car' OR parking_type = 'both' ";
         $query = $this->db->select('*')
         ->from($this->parking)
-        ->where('parking_type', 'wheelchair')
+        ->where($where)
         ->get();
         return $query->result_array();
     }

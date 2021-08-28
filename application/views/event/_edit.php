@@ -15,26 +15,41 @@
 <input type="hidden" name="calendar_id" value="<?= (!empty($event)) ? $event->calendar_id : ''; ?>" />
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="event_name"><strong>Event Name</strong></label>
+            <label for="event_name"><strong>Event Name<span class="text-danger">*</span></strong></label>
             <input type="text" name="event_name" class="form-control" value="<?= (!empty($event)) ? $event->event_name : ''; ?>" required />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="event_date"><strong>Event Date</strong></label>
+            <label for="event_date"><strong>Event Date<span class="text-danger">*</span></strong></label>
             <input type="text" name="event_date" class="form-control" id="datepicker" value="<?= (!empty($event)) ? $event->event_date : ''; ?>" required>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="start_time"><strong>Start Time</strong></label>
+            <label for="start_time"><strong>Start Time<span class="text-danger">*</span></strong></label>
             <input type="text" name="start_time" class="form-control" id="timepicker1" value="<?= (!empty($event)) ? $event->start_time : ''; ?>" required />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="end_time"><strong>End Time</strong></label>
+            <label for="end_time"><strong>End Time<span class="text-danger">*</span></strong></label>
             <input type="text" name="end_time" class="form-control" id="timepicker2" value="<?= (!empty($event)) ? $event->end_time : ''; ?>" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+                <label for="building_id"><strong>Venue<span class="text-danger">*</span></strong></label>
+                <select name="building_id" class="form-control" required="">
+                    <option value="<?= (!empty($event)) ? $event->building_id : ''; ?>" selected="" ><?= $this->building->get_building($event->building_id)->building_name?></option>
+                    <?php
+                    foreach ($buildings as $building) {
+                        ?>
+                        <option value="<?=$building['building_id'];?>"><?=$building['building_name'];?></option>
+                        <?php
+                    }
+                    ?>
+            </select>
         </div>
     </div>
     <div class="row mt-4">

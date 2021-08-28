@@ -16,6 +16,7 @@
             <thead>
                 <tr>
                     <th>Event Name</th>
+                    <th>Venue</th>
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
@@ -28,6 +29,7 @@
                     ?>
                     <tr>
                         <td><?= $event['event_name']; ?></td>
+                        <td><?= $this->building->get_building($event['building_id'])->building_name; ?></td>
                         <td><?= $event['event_date']; ?></td>
                         <td><?= $event['start_time']; ?></td>
                         <td><?= $event['end_time']; ?></td>
