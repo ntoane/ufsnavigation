@@ -15,6 +15,21 @@
             <div class="col">
             <div class="row">
                 <div class="form-group col-md-12">
+                        <label for="category_id"><strong>Category<span class="text-danger">*</span></strong></label>
+                        <select name="category_id" class="form-control" required="">
+                            <option value="" selected="" disabled="">Select category</option>
+                            <?php
+                            foreach ($categories as $category) {
+                                ?>
+                                <option value="<?=$category['category_id'];?>"><?=$category['category_name'];?></option>
+                                <?php
+                            }
+                            ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
                     <label for="name"><strong>Building Name<span class="text-danger">*</span></strong></label>
                     <input type="text" name="name"  class="form-control" required />
                 </div>

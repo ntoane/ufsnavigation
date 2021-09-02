@@ -120,6 +120,7 @@ class Parking extends CI_Controller {
     public function create_parking() {
         if (_is_user_login($this)) {
             if ($this->input->post('submit_parking')) {
+                $category_id = 2; //static value corresponding to category table created by migration
                 $cat_id = $this->input->post('cat_id');
                 $parking_type = $this->input->post('parking_type');
                 $parking_name = $this->input->post('parking_name');
@@ -128,6 +129,7 @@ class Parking extends CI_Controller {
                 $description = $this->input->post('description');
 
                 $data_parking = array(
+                    'category_id' => $category_id,
                     'cat_id' => $cat_id,
                     'parking_name' => $parking_name,
                     'parking_type' => $parking_type,

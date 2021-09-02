@@ -21,12 +21,14 @@ class Building extends CI_Controller {
     public function create() {
         if (_is_user_login($this)) {
             if ($this->input->post('submit_building')) {
+                $category_id = $this->input->post('category_id');
                 $name = $this->input->post('name');
                 $latitute = floatval($this->input->post('lat'));
                 $longitude = floatval($this->input->post('lon'));
                 $description = $this->input->post('description');
 
                 $data_building = array(
+                    'category_id' => $category_id,
                     'building_name' => $name,
                     'lat_coordinate' => $latitute,
                     'lon_coordinate' => $longitude,
@@ -110,6 +112,7 @@ class Building extends CI_Controller {
                 }
                 redirect('building');
             } else {
+                $data['categories'] = $this->building->get_array("SELECT * FROM tbl_category");
                 $data['view'] = 'building/_create.php';
                 $this->load->view('_layout.php', $data);
             }

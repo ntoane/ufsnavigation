@@ -12,6 +12,11 @@ class Migration_Add_building extends CI_Migration {
                 'unsigned' => true,
                 'auto_increment' => true,
             ),
+            'category_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+            ),
             'building_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '50',
@@ -33,6 +38,7 @@ class Migration_Add_building extends CI_Migration {
         ));
 
         $this->dbforge->add_key('building_id', true);
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES tbl_category(category_id) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_building');
     }
 

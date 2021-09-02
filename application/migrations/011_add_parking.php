@@ -12,6 +12,11 @@ class Migration_Add_parking extends CI_Migration {
                 'unsigned' => true,
                 'auto_increment' => true,
             ),
+            'category_id' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+            ),
             'cat_id' => array(
                 'type' => 'INT',
                 'constraint' => 11,
@@ -42,6 +47,7 @@ class Migration_Add_parking extends CI_Migration {
         ));
 
         $this->dbforge->add_key('parking_id', true);
+        $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES tbl_category(category_id) ON DELETE CASCADE');
         $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (cat_id) REFERENCES tbl_parking_category(cat_id) ON DELETE CASCADE');
         $this->dbforge->create_table('tbl_parking');
     }
