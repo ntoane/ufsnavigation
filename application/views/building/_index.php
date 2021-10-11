@@ -9,19 +9,23 @@
 <div class="card shadow-sm mb-2">
 <div class="card-body">
     <div class="row">
-    <div class="text-right mb-2">
+    <div class="text-left mb-2">
         <a class="btn btn-primary btn-sm" href="<?php echo base_url().'building/create';?> "><i class="fa fa-plus"></i> New Building</a>
+    </div>
+    <div class="float-right mb-2 pl-2">
+        <a class="btn btn-primary btn-sm" href="<?php echo base_url().'building/create_room';?> "><i class="fa fa-plus"></i> New Room</a>
     </div>
     <hr>
     <br><br>
     <div class="table-responsive">
-        <table id="dataTable" class="table table-striped table-hover dt-responsive" style="width:100%">
-            <thead>
+        <table id="dataTable" class="table table-bordered table-hover dt-responsive" style="width:100%">
+            <thead class="thead-light">
                 <tr>
                     <th>Building Name</th>
-                    <th>GPS Coordinates</th>
+                    <th>GPS Location</th>
                     <th>Description</th>
                     <th>Images</th>
+                    <th>Levels</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -33,7 +37,7 @@
                         <td><?= $building['building_name']; ?></td>
                         <td>
                             <a target="_blank" href="<?= 'https://www.google.com/maps/@?api=1&map_action=map&center='.$building['lat_coordinate'] . ',' . $building['lon_coordinate'] .'&zoom=18&basemap=satellite'; ?>">
-                            <?= $building['lat_coordinate'] . ',' . $building['lon_coordinate']; ?></a>
+                            View on Map</a>
                         </td>
                         <td><?= $building['description']; ?></td>
                         <td>
@@ -44,6 +48,25 @@
                                     <a target="_blank" href="<?=base_url().'uploads/buildings/'.$image['url'];?>" ><?=$image['url']?></a> <br>
                                 <?php
                                 }
+                            ?>
+                        </td>
+                        <td>
+                            <!--Load this building's resourcebundle_get_error_message-->
+                            <?php 
+                                $levels = $this->building->get_building_levels($building['building_id']);
+                                foreach($levels as $level) {
+                                    echo '<strong>Level '. $level['floor_num'].'</strong>';
+                                    $rooms = $this->building->get_building_level_rooms_toilets($level['building_id'], $level['floor_num']);
+                                    foreach($rooms as $room) {
+                                        ?><p><?php
+                                        echo $room['room_name'];
+                                        ?>
+                                        <a href="<?= base_url() . 'building/delete_room/' . $room['room_id']; ?>" class="btn-danger btn-sm mt-1" data-toggle="tooltip" data-placement="top" title="Delete this room"><i class="fa fa-times"></i></a>
+                                        </p>
+                                        <?
+                                    }
+                                    echo '<hr>';
+                                } 
                             ?>
                         </td>
                         <td>

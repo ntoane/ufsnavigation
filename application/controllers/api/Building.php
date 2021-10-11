@@ -30,6 +30,10 @@ class Building extends MY_RestController {
 
         if($building_id == null) { //building id param not requested
             if($buildings) {
+                foreach($buildings as $key => $val) {
+                    //Append ebedded images to the array
+                    $buildings[$key]['images'] = $this->image->get_building_image_urls($buildings[$key]['building_id']);
+                }
                 $this->response($buildings, 200);
             }else {
                 $this->response( [
@@ -74,9 +78,9 @@ class Building extends MY_RestController {
         }
     }
 
-    //Retrieve and return images of a given building id
-    public function images_get() {
-        $building_id = $_REQUEST['building_id'];
+    //Retrieve and return images of a given building id using Path Param
+    public function images_get($building_id) {
+        //$building_id = $_REQUEST['building_id']; for query param
         
         if($building_id != null) {
             $images = $this->image->get_building_images($building_id);
@@ -92,6 +96,69 @@ class Building extends MY_RestController {
             $this->response([
                 'status' => false,
                 'message' => 'No such building found'
+            ], 404);
+        }
+    }
+
+    public function building_levels_get($building_id) {
+        if($building_id != null) {
+            $levels = $this->building->get_building_levels($building_id);
+            if($levels) {
+                $this->response($levels, 200);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'message' => 'No such images found'
+                ], 404);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'No such building levels found'
+            ], 404);
+        }
+    }
+
+    public function building_levels_rooms_get($building_id, $floor_num) {
+        if($building_id != null) {
+            $rooms = $this->building->get_building_level_rooms($building_id, $floor_num);
+            if($rooms) {
+                foreach($rooms as $key => $val) {
+                    $rooms[$key]['building_name'] = $this->building->get_building($val['building_id'])->building_name;
+                }
+                $this->response($rooms, 200);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'message' => 'No such rooms found'
+                ], 404);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'No such building level rooms found'
+            ], 404);
+        }
+    }
+
+    public function building_levels_toilets_get($building_id, $floor_num) {
+        if($building_id != null) {
+            $toilets = $this->building->get_building_level_toilets($building_id, $floor_num);
+            if($toilets) {
+                foreach($toilets as $key => $val) {
+                    $toilets[$key]['building_name'] = $this->building->get_building($val['building_id'])->building_name;
+                }
+                $this->response($toilets, 200);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'message' => 'No such toilets found'
+                ], 404);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'No such building level toilets found'
             ], 404);
         }
     }

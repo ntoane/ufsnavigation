@@ -95,18 +95,19 @@ class Building extends CI_Controller {
                             $this->session->set_flashdata('title', 'Success');
                             $this->session->set_flashdata('text', 'Building data successfully added'); 
                         } else {
-                            $this->session->set_flashdata('type', 'danger');
+                            $this->session->set_flashdata('type', 'error');
                             $this->session->set_flashdata('title', 'Error');
                             $this->session->set_flashdata('text', 'Buiding data NOT inserted!!');
                         }
                     } else {
-                        $this->session->set_flashdata('type', 'danger');
+                        $this->session->set_flashdata('type', 'error');
                         $this->session->set_flashdata('title', 'Error');
                         $this->session->set_flashdata('text', 'There are some errors (' . count($upload_errors). ') uploading the images');
+                        //echo json_encode($upload_errors);
                     }
                  
                 } else {
-                    $this->session->set_flashdata('type', 'danger');
+                    $this->session->set_flashdata('type', 'error');
                     $this->session->set_flashdata('title', 'Error');
                     $this->session->set_flashdata('text', 'Error creating new building');
                 }
@@ -197,12 +198,12 @@ class Building extends CI_Controller {
                     $this->session->set_flashdata('title', 'Success');
                     $this->session->set_flashdata('text', 'Building data updated successfully'); 
                 } else {
-                    $this->session->set_flashdata('type', 'danger');
+                    $this->session->set_flashdata('type', 'error');
                     $this->session->set_flashdata('title', 'Error');
                     $this->session->set_flashdata('text', 'Buiding data NOT updated!!');
                 }
             } else {
-                $this->session->set_flashdata('type', 'danger');
+                $this->session->set_flashdata('type', 'error');
                 $this->session->set_flashdata('title', 'Error');
                 $this->session->set_flashdata('text', 'There are some errors (' . count($upload_errors). ') uploading the images');
             }
@@ -246,7 +247,7 @@ class Building extends CI_Controller {
                     $this->session->set_flashdata('title', 'Success');
                     $this->session->set_flashdata('text', 'Building data deleted Successfully');
                 } else {
-                    $this->session->set_flashdata('type', 'danger');
+                    $this->session->set_flashdata('type', 'error');
                     $this->session->set_flashdata('title', 'Error');
                     $this->session->set_flashdata('text', 'Error deleteng building');
                 }
@@ -282,13 +283,72 @@ class Building extends CI_Controller {
                     $this->session->set_flashdata('title', 'Success');
                     $this->session->set_flashdata('text', 'Building Image deleted Successfully');
                 } else {
-                    $this->session->set_flashdata('type', 'danger');
+                    $this->session->set_flashdata('type', 'error');
                     $this->session->set_flashdata('title', 'Error');
                     $this->session->set_flashdata('text', 'Error deleteng building');
                 }
                 redirect('building/edit/' . $building_id);
             }else {
                 redirect('building/edit/' . $building_id);
+            }
+      }
+    }
+
+    
+    public function create_room() {
+        if (_is_user_login($this)) {
+            if ($this->input->post('submit_room')) {
+                $room_type = $this->input->post('room_type');
+                $building_id = $this->input->post('building_id');
+                $level = $this->input->post('level');
+                $room_name = $this->input->post('room_name');
+                $description = $this->input->post('description');
+
+                $data_room = array(
+                    'room_type' => $room_type,
+                    'building_id' => $building_id,
+                    'room_name' => $room_name,
+                    'floor_num' => $level,
+                    'description' => $description
+                );
+
+                $room_id = $this->building->add_room($data_room);
+                if($room_id > 0) {
+                    $this->session->set_flashdata('type', 'success');
+                    $this->session->set_flashdata('title', 'Success');
+                    $this->session->set_flashdata('text', 'Room added Successfully');
+                }else {
+                    $this->session->set_flashdata('type', 'error');
+                    $this->session->set_flashdata('title', 'Error');
+                    $this->session->set_flashdata('text', 'Error occured when adding Room');
+                }
+                redirect('building');
+            }else {
+                $data['buildings'] = $this->building->get_buildings();
+                $data['view'] = 'building/_create_room.php';
+                $this->load->view('_layout.php', $data);
+            }
+        }
+    }
+
+    public function delete_room() {
+        if (_is_user_login($this)) {
+            $room_id = $this->uri->segment(3);
+            if ($room_id > 0) {
+                $id = $this->building->delete_room($room_id);
+    
+                if ($id > 0) {
+                    $this->session->set_flashdata('type', 'success');
+                    $this->session->set_flashdata('title', 'Success');
+                    $this->session->set_flashdata('text', 'Room data deleted Successfully');
+                } else {
+                    $this->session->set_flashdata('type', 'error');
+                    $this->session->set_flashdata('title', 'Error');
+                    $this->session->set_flashdata('text', 'Error deleteng Room');
+                }
+                redirect('building');
+            }else {
+                redirect('building');
             }
       }
     }

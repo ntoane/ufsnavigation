@@ -61,6 +61,7 @@ class Parking_model extends MY_Model {
     public function get_parking($parking_id) {
         $query = $this->db->select('*')
         ->from($this->parking)
+        ->where('category_id', 1)
         ->where('parking_id', $parking_id)
         ->get();
         return $query->row();
@@ -70,6 +71,7 @@ class Parking_model extends MY_Model {
         $where = "parking_type = 'car' OR parking_type = 'both' ";
         $query = $this->db->select('*')
         ->from($this->parking)
+        ->where('category_id', 1)
         ->where($where)
         ->get();
         return $query->result_array();
@@ -79,6 +81,7 @@ class Parking_model extends MY_Model {
         $where = "parking_type = 'wheelchair' OR parking_type = 'both' ";
         $query = $this->db->select('*')
         ->from($this->parking)
+        ->where('category_id', 1)
         ->where($where)
         ->get();
         return $query->result_array();
@@ -89,6 +92,7 @@ class Parking_model extends MY_Model {
         $where = "(parking_type = 'car' OR parking_type = 'both') AND (cat_id = '1' OR cat_id = '2') ";
         $query = $this->db->select('*')
         ->from($this->parking)
+        ->where('category_id', 1)
         ->where($where)
         ->get();
         return $query->result_array();
@@ -98,6 +102,7 @@ class Parking_model extends MY_Model {
         $where = "parking_type = '(wheelchair' OR parking_type = 'both') AND (cat_id = '1' OR cat_id = '2') ";
         $query = $this->db->select('*')
         ->from($this->parking)
+        ->where('category_id', 1)
         ->where($where)
         ->get();
         return $query->result_array();

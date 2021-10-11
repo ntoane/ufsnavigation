@@ -39,8 +39,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                <img class="rounded mx-auto d-block mt-5" src="<?= base_url() . 'assets/img/logo.jpg';?>">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image pt-5">
+                                <img class="rounded mx-auto d-block mt-5" src="<?= base_url() . 'assets/img/logo.png';?>">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -77,7 +77,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="#">Forgot Password?</a>
                                     </div>
                                 </div>
                             </div>

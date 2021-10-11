@@ -58,6 +58,12 @@ class Image_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function get_building_image_urls($building_id) {
+        $sql = "SELECT i.url FROM tbl_building_image b INNER JOIN tbl_image i ON b.image_id=i.image_id WHERE b.building_id = " . $building_id;
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
     public function get_parking_images($parking_id) {
         $sql = "SELECT p.parking_image_id, p.parking_id, p.image_id, i.url FROM tbl_parking_image p INNER JOIN tbl_image i 
             ON p.image_id=i.image_id WHERE p.parking_id = " . $parking_id;

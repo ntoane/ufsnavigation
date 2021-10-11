@@ -48,8 +48,8 @@
                         ?>
                         <div class="col-4">
                             <div>
-                                <a target="_blank" href="<?=base_url().'uploads/buildings/'.$image['url'];?>"> 
-                                    <img class="rounded mx-auto d-block mt-2" src="<?= base_url() . 'uploads/buildings/' . $image['url'];?>" width="130" height="120">
+                                <a target="_blank" href="<?= base_url().'uploads/buildings/'.$image['url'];?>"> 
+                                    <img class="rounded mx-auto d-block mt-2" src="<?= base_url().'uploads/buildings/'.$image['url'];?>" width="130" height="120">
                                 </a>
                             </div>
                             <div class="mt-1 text-center">

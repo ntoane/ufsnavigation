@@ -58,11 +58,9 @@
         <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #405c88" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url() . 'dashboard'; ?>">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-map-marker"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Admin Panel</div>
+            <a class="sidebar-brand d-flex align-items-center" href="<?= base_url() . 'dashboard'; ?>">
+                    <img class="rounded mx-auto d-block" src="<?= base_url() . 'assets/img/logo_icon.png';?>" width="40px" height="40px">
+                <div class="sidebar-brand-text ">Admin Panel</div>
             </a>
 
             <!-- Divider -->

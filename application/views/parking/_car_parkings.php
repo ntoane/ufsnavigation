@@ -41,7 +41,7 @@
                                 $images = $this->image->get_parking_images($parking['parking_id']);
                                 foreach($images as $image) {
                                 ?>
-                                    <a target="_blank" href="<?=base_url().'uploads/parkings/'.$image['url'];?>" ><?=$image['url']?></a> <br>
+                                    <a target="_blank" href="<?=$image['url'];?>" ><?=$image['url']?></a> <br>
                                 <?php
                                 }
                             ?>
