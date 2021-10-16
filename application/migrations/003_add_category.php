@@ -36,13 +36,8 @@ class Migration_Add_category extends CI_Migration {
     private $seedData = array(
         '("Buildings")',
         '("Parkings")',
-        '("Offices")',
-        '("Lecture Halls")',
-        '("Study Places")',
         '("Health Services")',
-        '("Shops")',
-        '("Sports")',
-        '("Hostels")'
+        '("Eating Places")',
     );
 
 }

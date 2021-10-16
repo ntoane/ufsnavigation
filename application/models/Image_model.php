@@ -70,4 +70,10 @@ class Image_model extends MY_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+
+    public function get_parking_image_urls($parking_id) {
+        $sql = "SELECT i.url FROM tbl_parking_image p INNER JOIN tbl_image i ON p.image_id=i.image_id WHERE p.parking_id = " . $parking_id;
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 }

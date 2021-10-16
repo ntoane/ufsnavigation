@@ -33,7 +33,7 @@
                         <td><?= $parking['parking_name']; ?></td>
                         <td>
                             <a target="_blank" href="<?= 'https://www.google.com/maps/@?api=1&map_action=map&center='.$parking['lat_coordinate'] . ',' . $parking['lon_coordinate'] .'&zoom=18&basemap=satellite'; ?>">
-                            <?= $parking['lat_coordinate'] . ',' . $parking['lon_coordinate']; ?></a>
+                            View on Map</a>
                         </td>
                         <td><?= $parking['description']; ?></td>
                         <td>
@@ -41,7 +41,7 @@
                                 $images = $this->image->get_parking_images($parking['parking_id']);
                                 foreach($images as $image) {
                                 ?>
-                                    <a target="_blank" href="<?=$image['url'];?>" ><?=$image['url']?></a> <br>
+                                    <a target="_blank" href="<?=base_url().'uploads/parkings/'.$image['url'];?>" ><?=$image['url']?></a> <br>
                                 <?php
                                 }
                             ?>

@@ -30,7 +30,7 @@ class Building_model extends MY_Model {
     public function get_building($building_id) {
         $query = $this->db->select('*')
         ->from($this->table)
-        ->where('category_id', 1)
+        //->where('category_id', 1)
         ->where('Building_id', $building_id)
         ->get();
         return $query->row();
@@ -39,7 +39,7 @@ class Building_model extends MY_Model {
     public function get_buildings() {
         $query = $this->db->select('*')
         ->from($this->table)
-        ->where('category_id', 1)
+        //->where('category_id', 1)
         ->get();
         return $query->result_array();
     }
@@ -50,6 +50,22 @@ class Building_model extends MY_Model {
         ->where('building_id', $building_id)
         ->group_by('floor_num')
         ->order_by('floor_num', 'ASC')
+        ->get();
+        return $query->result_array();
+    }
+
+    public function get_Health_Services() {
+        $query = $this->db->select('*')
+        ->from($this->table)
+        ->where('category_id', 3)
+        ->get();
+        return $query->result_array();
+    }
+
+    public function get_eating_places() {
+        $query = $this->db->select('*')
+        ->from($this->table)
+        ->where('category_id', 4)
         ->get();
         return $query->result_array();
     }

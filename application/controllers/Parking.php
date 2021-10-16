@@ -182,7 +182,7 @@ class Parking extends CI_Controller {
                     $no_errors = true;
                     if((count($upload_errors) == 0) && (count($image_names) > 0)) {
                         for($i=0; $i<count($image_names); $i ++) {
-                            $image_id = $this->image->add_image(['url' => base_url().'uploads/parkings/'.$image_names[$i]]);
+                            $image_id = $this->image->add_image(['url' => $image_names[$i]]);
                             if($image_id < 1 ) {
                                 $no_errors = false;
                             }else { 
@@ -294,7 +294,7 @@ class Parking extends CI_Controller {
             $no_errors = true;
             if((count($upload_errors) == 0) && (count($image_names) > 0)) {
                 for($i=0; $i<count($image_names); $i ++) {
-                    $image_id = $this->image->add_image(['url' => base_url().'uploads/parkings/'.$image_names[$i]]);
+                    $image_id = $this->image->add_image(['url' => $image_names[$i]]);
                     if($image_id < 1 ) {
                         $no_errors = false;
                     }else { 

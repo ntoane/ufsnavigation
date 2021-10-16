@@ -56,6 +56,40 @@ class Building extends MY_RestController {
         }
     }
 
+    public function health_services_get() {
+        $health = $this->building->get_Health_Services();
+
+        if($health) {
+            foreach($health as $key => $val) {
+                //Append ebedded images to the array
+                $health[$key]['images'] = $this->image->get_building_image_urls($health[$key]['building_id']);
+            }
+            $this->response($health, 200);
+        }else {
+            $this->response( [
+                'status' => false,
+                'message' => 'No Health Services found'
+            ], 404 );
+        }
+    }
+
+    public function eating_places_get() {
+        $eating = $this->building->get_eating_places();
+
+        if($eating) {
+            foreach($eating as $key => $val) {
+                //Append ebedded images to the array
+                $eating[$key]['images'] = $this->image->get_building_image_urls($eating[$key]['building_id']);
+            }
+            $this->response($eating, 200);
+        }else {
+            $this->response( [
+                'status' => false,
+                'message' => 'No Eating Places found'
+            ], 404 );
+        }
+    }
+
     //Retrieve and return a building data based on building id
     public function building_get() {
         $building_id = $_REQUEST['building_id'];//Get building id from query param
