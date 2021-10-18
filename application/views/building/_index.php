@@ -61,6 +61,8 @@
                                         ?><p><?php
                                         echo $room['room_name'];
                                         ?>
+                                        <a href="<?= base_url() . 'building/room_directions/' . $room['room_id'] . '/' . $level['floor_num'] . '/' . $building['building_name']; ?>" 
+                                            class="btn-info btn-sm mt-1" data-toggle="tooltip" data-placement="top" title="Directions to this room"><i class="fa fa-directions"></i></a>
                                         <a href="<?= base_url() . 'building/delete_room/' . $room['room_id']; ?>" class="btn-danger btn-sm mt-1" data-toggle="tooltip" data-placement="top" title="Delete this room"><i class="fa fa-times"></i></a>
                                         </p>
                                         <?

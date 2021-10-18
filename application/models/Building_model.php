@@ -6,6 +6,7 @@ class Building_model extends MY_Model {
 
     protected $table = 'tbl_building';
     protected $table_room = 'tbl_room';
+    protected $table_room_direction = 'tbl_room_direction';
 
     public function __construct() {
         parent::__construct();
@@ -131,6 +132,27 @@ class Building_model extends MY_Model {
         ->where('floor_num', $floor_num)
         ->get();
         return $query->result_array();
+    }
+
+    //Room directions
+    public function add_room_direction($data) {
+        return $this->insert($this->table_room_direction, $data);
+    }
+
+    public function get_room_directions($room_id) {
+        $query = $this->db->select('*')
+        ->from($this->table_room_direction)
+        ->where('room_id', $room_id)
+        ->get();
+        return $query->result_array();
+    }
+
+    public function delete_room_direction($room_direction_id) {
+        $tables = array($this->table_room_direction);
+        $where = array(
+            'room_direction_id' => $room_direction_id
+        );
+        return $this->delete($tables, $where);
     }
 
 }

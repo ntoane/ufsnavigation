@@ -19,12 +19,18 @@ class Event extends MY_RestController {
 
         //Load models
         $this->load->model('Event_model', 'event');
+        $this->load->model('Building_model', 'building');
     }
 
     public function upcoming_get() {
         $events = $this->event->get_upcoming_events();
 
         if($events) {
+            foreach($events as $key => $val) {
+                $events[$key]['building_name'] = $this->building->get_building($val['building_id'])->building_name;
+                $events[$key]['lat_coordinate'] = $this->building->get_building($val['building_id'])->lat_coordinate;
+                $events[$key]['lon_coordinate'] = $this->building->get_building($val['building_id'])->lon_coordinate;
+            }
             $this->response($events, 200);
         }else {
             $this->response( [

@@ -352,4 +352,80 @@ class Building extends CI_Controller {
             }
       }
     }
+
+    /************************************** Room Directions **************************************************/
+    public function create_room_directions() {
+        if (_is_user_login($this)) {
+            if ($this->input->post('submit_room_directions')) {
+                $room_id = $this->input->post('room_id');
+                $entrance = $this->input->post('entrance');
+                $directions = $this->input->post('directions');
+
+                $data_room_directions = array(
+                    'room_id' => $room_id,
+                    'entrance' => $entrance,
+                    'directions' => $directions
+                );
+
+                $direction_id = $this->building->add_room_direction($data_room_directions);
+                if($direction_id > 0) {
+                    $this->session->set_flashdata('type', 'success');
+                    $this->session->set_flashdata('title', 'Success');
+                    $this->session->set_flashdata('text', 'Room directions added Successfully');
+                }else {
+                    $this->session->set_flashdata('type', 'error');
+                    $this->session->set_flashdata('title', 'Error');
+                    $this->session->set_flashdata('text', 'Error occured when adding Room directions');
+                }
+                redirect('building/room_directions/' . $room_id);
+            }else {
+                $this->session->set_flashdata('type', 'error');
+                $this->session->set_flashdata('title', 'Error');
+                $this->session->set_flashdata('text', 'Error occured when adding Room directions');
+                redirect('building/room_directions/' . $room_id);
+            }
+        }
+    }
+
+    public function room_directions() {
+        if (_is_user_login($this)) {
+            $room_id = $this->uri->segment(3);
+            if ($room_id > 0) {
+                $data['room_id'] = $room_id;
+                $data['level_num'] = 'Level ' . $this->uri->segment(4);
+                $data['building_name'] = urldecode($this->uri->segment(5));
+                $data['directions'] = $this->building->get_room_directions($room_id);
+                $data['view'] = 'building/_room_directions.php';
+                $this->load->view('_layout.php', $data);
+            }else {
+                redirect('building');
+            }
+      }
+    }
+
+    public function delete_room_direction() {
+        if (_is_user_login($this)) {
+            $room_direction_id = $this->uri->segment(3);
+            $room_id = $this->uri->segment(4);
+            if ($room_direction_id > 0) {
+                $id = $this->building->delete_room_direction($room_direction_id);
+    
+                if ($id > 0) {
+                    $this->session->set_flashdata('type', 'success');
+                    $this->session->set_flashdata('title', 'Success');
+                    $this->session->set_flashdata('text', 'Room directions data deleted Successfully');
+                } else {
+                    $this->session->set_flashdata('type', 'error');
+                    $this->session->set_flashdata('title', 'Error');
+                    $this->session->set_flashdata('text', 'Error deleteng Room directions');
+                }
+                redirect('building/room_directions/' . $room_id);
+            }else {
+                $this->session->set_flashdata('type', 'error');
+                $this->session->set_flashdata('title', 'Error');
+                $this->session->set_flashdata('text', 'Undefined room directions');
+                redirect('building/room_directions/' . $room_id);
+            }
+      }
+    }
 }

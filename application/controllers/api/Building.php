@@ -142,7 +142,7 @@ class Building extends MY_RestController {
             } else {
                 $this->response([
                     'status' => false,
-                    'message' => 'No such images found'
+                    'message' => 'No such building levels found'
                 ], 404);
             }
         } else {
@@ -193,6 +193,25 @@ class Building extends MY_RestController {
             $this->response([
                 'status' => false,
                 'message' => 'No such building level toilets found'
+            ], 404);
+        }
+    }
+
+    public function room_directions_get($room_id) {
+        if($room_id != null) {
+            $directions = $this->building->get_room_directions($room_id);
+            if($directions) {
+                $this->response($directions, 200);
+            } else {
+                $this->response([
+                    'status' => false,
+                    'message' => 'No such room directions found'
+                ], 404);
+            }
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'No such room directions found'
             ], 404);
         }
     }
