@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Student_model extends MY_Model {
 
     protected $table = 'tbl_student';
+    protected $table_timetable = 'tbl_timetable';
 
     public function __construct() {
         parent::__construct();
@@ -37,6 +38,27 @@ class Student_model extends MY_Model {
     public function get_students() {
         $query = $this->db->select('*')
         ->from($this->table)
+        ->get();
+        return $query->result_array();
+    }
+
+    /************************* TIMETABLE **********************/
+    public function add_timetable($data) {
+        return $this->insert($this->table_timetable, $data);
+    }
+
+    public function delete_timetable($timetable_id) {
+        $tables = array($this->table_timetable);
+        $where = array(
+            'timetable_id' => $timetable_id
+        );
+        return $this->delete($tables, $where);
+    }
+
+    public function get_student_timetable($std_number) {
+        $query = $this->db->select('*')
+        ->from($this->table_timetable)
+        ->where('std_number', $std_number)
         ->get();
         return $query->result_array();
     }

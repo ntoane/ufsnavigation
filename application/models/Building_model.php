@@ -70,6 +70,7 @@ class Building_model extends MY_Model {
         ->get();
         return $query->result_array();
     }
+/************************ Rooms ***********************/
 
     public function add_room($data) {
         return $this->insert($this->table_room, $data);
@@ -81,6 +82,14 @@ class Building_model extends MY_Model {
             'room_id' => $room_id
         );
         return $this->delete($tables, $where);
+    }
+
+    public function get_room($room_id) {
+        $query = $this->db->select('*')
+        ->from($this->table_room)
+        ->where('room_id', $room_id)
+        ->get();
+        return $query->row();
     }
 
     public function get_building_level_rooms($building_id, $floor_num) {
