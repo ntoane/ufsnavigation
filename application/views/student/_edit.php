@@ -28,12 +28,6 @@
                     <input type="text" name="lname" class="form-control" value="<?= (!empty($student)) ? $student->std_lname : ''; ?>" required />
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="email"><strong>Email</strong></label>
-                    <input type="email" name="email" class="form-control" value="<?= (!empty($student)) ? $student->email : ''; ?>" required />
-                </div>
-            </div>
             <div class="row mt-4">
                 <div class="form-group col-md-4">
                     <input class="btn btn-primary btn-block" name="update_student" type="submit" value="Save Changes" />

@@ -351,7 +351,7 @@
     </script>
 
 <!------------------------Calendar event source to grab events--------------------->
-    <script>
+    <!-- <script>
     $('#calendar').fullCalendar({
         eventSources: [
             {
@@ -372,7 +372,7 @@
                 }
             },
         ]
-    });
+    }); -->
     </script>
 
 

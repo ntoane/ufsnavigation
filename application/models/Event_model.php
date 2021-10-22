@@ -47,6 +47,7 @@ class Event_model extends MY_Model {
         DATE_FORMAT(end_time, '%k:%i') AS end_time, event_date")
         ->from($this->table)
         ->where('event_date >=', date('Y-m-d'))
+        ->order_by("event_date", "ASC")
         ->get();
         return $query->result_array();
     }

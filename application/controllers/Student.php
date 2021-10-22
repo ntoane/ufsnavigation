@@ -23,19 +23,17 @@ class Student extends CI_Controller {
             if ($this->input->post('submit_student')) {
                 $code = _generate_code();
                 $password = password_hash($code, PASSWORD_BCRYPT);
-                $email = $this->input->post('email');
                 $data_student = array(
                     'std_number' => $this->input->post('std_number'),
                     'std_fname' => $this->input->post('fname'),
                     'std_lname' => $this->input->post('lname'),
-                    'email' => $email,
                     'password' => $password
                 );
                 $id = $this->student->add_student($data_student);
                 if ($id > 0) {
-                    $message = 'You have been registered to UFS Campus Navigation Assistant <br> Use the following credentials to login to the App
+                    /*$message = 'You have been registered to UFS Campus Navigation Assistant <br> Use the following credentials to login to the App
                                 <br> Username: Your Student Number <br> Password: ' . $code;
-                    $this -> email_model -> send_mail($email,'UFS Campus Navigation Assistant Credentials',$message);
+                    $this -> email_model -> send_mail($email,'UFS Campus Navigation Assistant Credentials',$message);*/
 
                     $this->session->set_flashdata('type', 'success');
                     $this->session->set_flashdata('title', 'Success');

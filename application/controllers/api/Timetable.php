@@ -53,15 +53,12 @@ class Timetable extends MY_RestController {
         //echo json_encode($this->jwt->validate_token());
     }
 
-    public function student_timetable_get() {
-        // get posted data
-        $data = json_decode(file_get_contents("php://input"));
+    public function student_timetable_get($std_number) {
+        //Get student number
+        //$std_number = $_REQUEST['std_number'];
 
-        //Check if the token supplied is valid
-        $validation = $this->jwt->validate_token($data);
-
-        if($validation['message'] == "Access granted") {
-            $timetable = $this->student->get_student_timetable($validation['data']->std_number);
+        if(!empty($std_number)) {
+            $timetable = $this->student->get_student_timetable($std_number);
             if(!empty($timetable)) {
                 foreach($timetable as $key => $val) {
                     $room = $this->building->get_room($val['room_id']);
@@ -69,6 +66,8 @@ class Timetable extends MY_RestController {
                     $timetable[$key]['level_num'] = 'Level ' . $room->floor_num;
                     $building = $this->building->get_building($room->building_id);
                     $timetable[$key]['building_name'] = $building->building_name;
+                    $timetable[$key]['lat_coordinate'] = $building->lat_coordinate;
+                    $timetable[$key]['lon_coordinate'] = $building->lon_coordinate;
                 }
                 $this->response($timetable, 200);
             }else {

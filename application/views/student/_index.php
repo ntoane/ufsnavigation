@@ -18,7 +18,6 @@
                     <th>Student Number</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Email</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                         <td><?= $student['std_number']; ?></td>
                         <td><?= $student['std_fname']; ?></td>
                         <td><?= $student['std_lname']; ?></td>
-                        <td><?= $student['email']; ?></td>
                         <td>
                             <div class="btn-group">
                                 <a href="<?= base_url() . 'student/edit/' . $student['std_number']; ?>" class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" data-placement="top" title="Edit this student"><i class="fa fa-edit"></i></a>

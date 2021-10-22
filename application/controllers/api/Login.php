@@ -30,10 +30,26 @@ class Login extends MY_RestController{
             return $this->response(['message' => 'Wrong credentials'], 401);
         } else {
             return $this->response([
-                'message' => 'Successful login', 
-                'token' => $this->jwt->login_token($student)
+                'message' => 'You are loggen in successfully', 
+                'token' => $this->jwt->login_token($student),
+                'std_number' => $data->std_number
             ], 200);
         }
 	}
+
+    public function auth_user_post() {
+        $data = json_decode(file_get_contents("php://input"));
+
+        $validation = $this->jwt->validate_token($data);
+
+        if($validation['message'] == "Access granted") {
+            return $this->response([
+                'auth' => true,
+                'username' => $validation['data']->firstname . ' ' . $validation['data']->lastname
+            ], 200);
+        }else {
+            return $this->response(['auth' => false], 401);
+        }
+    }
 
 }
