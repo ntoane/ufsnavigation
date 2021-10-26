@@ -19,7 +19,7 @@ class JwtToken_model extends MY_Model
     {
 
         $tokenData['uniqueId'] = '11';
-        $tokenData['exp'] = time() + (60*60);//valid for 1hr
+        $tokenData['exp'] = time() + (60*600);//valid for 6hr
         $tokenData['role'] = 'Ntoane';
         $tokenData['timeStamp'] = Date('Y-m-d h:i:s');
         $tokenData['data'] = [

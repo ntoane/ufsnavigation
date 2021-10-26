@@ -39,6 +39,7 @@ class Migration_Add_timetable extends CI_Migration {
                 'constraint' => '10',
                 'null' => false,
             ),
+            'date_time datetime',
             'created_at datetime default current_timestamp',
         ));
 

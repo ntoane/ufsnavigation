@@ -21,6 +21,7 @@ class Timetable extends MY_RestController {
         $this->load->model('jwttoken_model', 'jwt');
         $this->load->model('student_model', 'student');
         $this->load->model('Building_model', 'building');
+        $this->load->model('Module_model', 'module');
     }
 
     public function create_timetable_post() {
@@ -81,16 +82,65 @@ class Timetable extends MY_RestController {
         }
     }
 
-    public function delete_timetable_entry_delete() {
-        //Get timetable id from query param
-        $timetable_id = $_REQUEST['timetable_id'];
-        // get posted data
-        $data = json_decode(file_get_contents("php://input"));
+    public function next_class_get($std_number) {
+        //$std_number = $_REQUEST['std_number'];
 
-        //Check if the token supplied is valid
-        $validation = $this->jwt->validate_token($data);
+        if(!empty($std_number)) {
+            $timetable = $this->student->get_today_classes($std_number);
+            if(!empty($timetable)) {
+                //Sort and scan for the next class
+                $sort_timetable = array();
+                foreach ($timetable as $key => $row)
+                {
+                    $sort_timetable[$key] = $row['start_time'];
+                    
+                }
+                array_multisort($sort_timetable, SORT_ASC, $timetable);
 
-        if(($validation['message'] == "Access granted") && ($timetable_id != null)) {
+                //Append other data after sorting
+                foreach($timetable as $key => $val) {
+                    $room = $this->building->get_room($val['room_id']);
+                    $timetable[$key]['room_name'] = $room->room_name;
+                    $timetable[$key]['level_num'] = 'Level ' . $room->floor_num;
+                    $building = $this->building->get_building($room->building_id);
+                    $timetable[$key]['building_name'] = $building->building_name;
+                    $timetable[$key]['lat_coordinate'] = $building->lat_coordinate;
+                    $timetable[$key]['lon_coordinate'] = $building->lon_coordinate;
+                    $timetable[$key]['status'] = true;
+                }
+
+                //Now pick the exact next class
+                foreach($timetable as $key => $value) {
+                    //return $this->response(strtotime($timetable[$key]['start_time']), 200);
+                    //check if timetable time is later than now 
+                    if(strtotime($timetable[$key]['start_time'])  <= time() )
+                    {
+                        //return this timetable entry
+                        return $this->response($timetable[$key], 200);
+                    }
+
+                    //No timetable entry for today
+                    return $this->response([
+                        'status' => false,
+                        'message'=>'You do not have next classes today'
+                    ], 200);
+                }
+
+                //$this->response($timetable, 200);
+            }else {
+                $this->response( [
+                    'status' => false,
+                    'message' => 'No timetable data found'
+                ], 404 );
+            }
+        }else {
+            return $this->response(['message' => 'You have no access'], 401);
+        }
+    }
+
+    public function delete_timetable_entry_delete($timetable_id) {
+
+        if(!empty($timetable_id)) {
             $delete_id = $this->student->delete_timetable($timetable_id);
             if($delete_id > 0) {
                 $this->response(['message' => 'Timetable entry deleted successfully'], 200);
@@ -101,7 +151,23 @@ class Timetable extends MY_RestController {
                 ], 404 );
             }
         }else {
-            return $this->response(['message' => 'You have no access'], 401);
+            return $this->response(['message' => 'Undefined timetable entry to be deleted'], 401);
+        }
+    }
+
+    public function module_codes_get() {
+        $modules = $this->module->get_module_codes();
+
+        if($modules) {
+            foreach($modules as $key => $val){
+                $modules[$key]['status'] = true;
+            }
+            $this->response($modules, 200);
+        }else {
+            $this->response( [
+                'status' => false,
+                'message' => 'No Module Codes found'
+            ], 404 );
         }
     }
 }

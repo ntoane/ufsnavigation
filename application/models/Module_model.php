@@ -26,16 +26,23 @@ class Module_model extends MY_Model {
         return $this->delete($tables, $where);
     }
 
-    public function get_module($calendar_id) {
+    public function get_module($module_id) {
         $query = $this->db->select('*')
         ->from($this->table)
-        ->where('module_code', $calendar_id)
+        ->where('module_code', $module_id)
         ->get();
         return $query->row();
     }
 
     public function get_modules() {
         $query = $this->db->select('*')
+        ->from($this->table)
+        ->get();
+        return $query->result_array();
+    }
+
+    public function get_module_codes() {
+        $query = $this->db->select('module_code')
         ->from($this->table)
         ->get();
         return $query->result_array();

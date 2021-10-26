@@ -56,9 +56,17 @@ class Student_model extends MY_Model {
     }
 
     public function get_student_timetable($std_number) {
+        $query = $this->db->select("* FROM `tbl_timetable` WHERE std_number = " . $std_number . 
+            " ORDER BY FIELD(day, 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'), start_time")
+            ->get();
+        return $query->result_array();
+    }
+
+    public function get_today_classes($std_number) {
         $query = $this->db->select('*')
         ->from($this->table_timetable)
         ->where('std_number', $std_number)
+        ->where('day', date('l'))
         ->get();
         return $query->result_array();
     }
