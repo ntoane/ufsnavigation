@@ -14,13 +14,13 @@
 <form action="<?= base_url() . 'module/create' ?>" method="POST">
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="module_code"><strong>Module Code</strong></label>
+            <label for="module_code"><strong>Module Code<span class="text-danger">*</span></strong></label>
             <input type="text" name="module_code" class="form-control" required />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label for="module_name"><strong>Module Name</strong></label>
+            <label for="module_name"><strong>Module Name<span class="text-danger">*</span></strong></label>
             <input type="text" name="module_name" class="form-control" required />
         </div>
     </div>

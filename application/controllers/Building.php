@@ -21,21 +21,24 @@ class Building extends CI_Controller {
     public function create() {
         if (_is_user_login($this)) {
             if ($this->input->post('submit_building')) {
+                //Get form data and save new building data to the database
                 $category_id = $this->input->post('category_id');
                 $name = $this->input->post('name');
                 $latitute = floatval($this->input->post('lat'));
                 $longitude = floatval($this->input->post('lon'));
                 $description = $this->input->post('description');
 
-                $data_building = array(
-                    'category_id' => $category_id,
-                    'building_name' => $name,
-                    'lat_coordinate' => $latitute,
-                    'lon_coordinate' => $longitude,
-                    'description' => $description
-                );
+                if(!empty($category_id) && !empty($name) && !empty($latitute) && !empty($longitude)) {
+                    $data_building = array(
+                        'category_id' => $category_id,
+                        'building_name' => $name,
+                        'lat_coordinate' => $latitute,
+                        'lon_coordinate' => $longitude,
+                        'description' => $description
+                    );
 
-                $building_id = $this->building->add_building($data_building);
+                    $building_id = $this->building->add_building($data_building);
+                }
                 if ($building_id > 0) {
 
                     //prepare to upload and insert new images
@@ -392,6 +395,7 @@ class Building extends CI_Controller {
             $room_id = $this->uri->segment(3);
             if ($room_id > 0) {
                 $data['room_id'] = $room_id;
+                $data['room_name'] = $this->building->get_room($room_id)->room_name;
                 $data['level_num'] = 'Level ' . $this->uri->segment(4);
                 $data['building_name'] = urldecode($this->uri->segment(5));
                 $data['directions'] = $this->building->get_room_directions($room_id);

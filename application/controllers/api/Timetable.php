@@ -51,7 +51,6 @@ class Timetable extends MY_RestController {
         }else {
             return $this->response(['message' => 'You have no access'], 401);
         }
-        //echo json_encode($this->jwt->validate_token());
     }
 
     public function student_timetable_get($std_number) {
@@ -95,7 +94,8 @@ class Timetable extends MY_RestController {
                     $sort_timetable[$key] = $row['start_time'];
                     
                 }
-                array_multisort($sort_timetable, SORT_ASC, $timetable);
+                //sort timetable in ascending order by start_time
+                array_multisort($sort_timetable, SORT_DESC, $timetable);
 
                 //Append other data after sorting
                 foreach($timetable as $key => $val) {
@@ -113,12 +113,13 @@ class Timetable extends MY_RestController {
                 foreach($timetable as $key => $value) {
                     //return $this->response(strtotime($timetable[$key]['start_time']), 200);
                     //check if timetable time is later than now 
-                    if(strtotime($timetable[$key]['start_time'])  <= time() )
+                    //Add 3600(1hr) seconds to start time and 7200 (2hrs) seconds to time now to standardize
+                    if((strtotime($timetable[$key]['start_time']) + 3600)  >= (time() + 7200) )
                     {
                         //return this timetable entry
                         return $this->response($timetable[$key], 200);
                     }
-
+                    //return $this->response(strtotime($timetable[$key]['start_time']) + 3600, 200);
                     //No timetable entry for today
                     return $this->response([
                         'status' => false,
@@ -126,7 +127,7 @@ class Timetable extends MY_RestController {
                     ], 200);
                 }
 
-                //$this->response($timetable, 200);
+                $this->response($timetable, 200);
             }else {
                 $this->response( [
                     'status' => false,
@@ -167,6 +168,19 @@ class Timetable extends MY_RestController {
             $this->response( [
                 'status' => false,
                 'message' => 'No Module Codes found'
+            ], 404 );
+        }
+    }
+
+    public function all_rooms_get() {
+        $buildings_rooms = $this->building->get_buildings_rooms();
+
+        if($buildings_rooms) {
+            $this->response($buildings_rooms, 200);
+        }else {
+            $this->response( [
+                'status' => false,
+                'message' => 'No Buildings Rooms found'
             ], 404 );
         }
     }

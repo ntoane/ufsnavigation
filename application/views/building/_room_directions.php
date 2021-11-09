@@ -10,16 +10,16 @@
 <div class="card-body">
 <div class="row">
     <div class="col-md-6 mx-auto">
-        <h6><strong>Enter new directions for <?='Room ' . $room_id;?>, <?=$level_num;?>, <?=$building_name;?></strong></h6>
+        <h6><strong>Enter new directions for <?=$room_name;?>, <?=$level_num;?>, <?=$building_name;?></strong></h6>
         <hr>
         <form action="<?= base_url() . 'building/create_room_directions' ?>" method="POST">
             <input type="hidden" name="room_id" value="<?= $room_id ?>">
                 <div class="form-group">
-                    <label for="entrance"><strong>Entrance:</strong></label>
+                    <label for="entrance"><strong>Entrance:<span class="text-danger">*</span></strong></label>
                     <input type="text" name="entrance" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="directions"><strong>Room Directions:</strong></label>
+                    <label for="directions"><strong>Room Directions:<span class="text-danger">*</span></strong></label>
                     <textarea class="form-control" rows="8" name="directions" required>
                     </textarea>
                 </div>
@@ -31,7 +31,7 @@
 
     </div>
     <div class="col-md-6 mx-auto">
-        <h6><strong>Directions to <?='Room ' . $room_id;?>, <?=$level_num;?>, <?=$building_name;?></strong></h6>
+        <h6><strong>Directions to <?=$room_name;?>, <?=$level_num;?>, <?=$building_name;?></strong></h6>
         <hr>
         <table class="table table-bordered table-hover dt-responsive" style="width:100%">
                 <thead class="thead-light">

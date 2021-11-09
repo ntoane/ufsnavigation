@@ -156,7 +156,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manage Modules:</h6>
                         <a class="collapse-item" href="<?=base_url() . 'module'?>">Modules List</a>
-                        <a class="collapse-item" href="<?=base_url() . 'module/create'?>">New Modules</a>
+                        <a class="collapse-item" href="<?=base_url() . 'module/create'?>">New Module</a>
                     </div>
                 </div>
             </li>

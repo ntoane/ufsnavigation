@@ -31,7 +31,7 @@ class Building extends MY_RestController {
         if($building_id == null) { //building id param not requested
             if($buildings) {
                 foreach($buildings as $key => $val) {
-                    //Append ebedded images to the array
+                    //Append embedded images to the array
                     $buildings[$key]['images'] = $this->image->get_building_image_urls($buildings[$key]['building_id']);
                 }
                 $this->response($buildings, 200);

@@ -40,6 +40,7 @@ class Building_model extends MY_Model {
     public function get_buildings() {
         $query = $this->db->select('*')
         ->from($this->table)
+        ->order_by('building_name', 'ASC')
         //->where('category_id', 1)
         ->get();
         return $query->result_array();
@@ -162,6 +163,12 @@ class Building_model extends MY_Model {
             'room_direction_id' => $room_direction_id
         );
         return $this->delete($tables, $where);
+    }
+
+    public function get_buildings_rooms() {
+        $sql = "SELECT b.building_id, b.building_name, r.room_id, r.room_name, r.floor_num FROM tbl_building b 
+            INNER JOIN tbl_room r ON b.building_id = r.building_id";
+        return $this->get_array($sql);
     }
 
 }
