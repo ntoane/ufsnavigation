@@ -24,16 +24,12 @@ class Module extends CI_Controller {
                     'module_code' => $this->input->post('module_code'),
                     'module_name' => $this->input->post('module_name')
                 );
-                
-                if ($this->module->add_module($data_module)) {
-                    $this->session->set_flashdata('type', 'success');
-                    $this->session->set_flashdata('title', 'Success');
-                    $this->session->set_flashdata('text', 'Module added Successfully');
-                } else {
-                    $this->session->set_flashdata('type', 'danger');
-                    $this->session->set_flashdata('title', 'Error');
-                    $this->session->set_flashdata('text', 'Cannot Insert Module');
-                }
+                $id = $this->module->add_module($data_module); 
+
+                $this->session->set_flashdata('type', 'success');
+                $this->session->set_flashdata('title', 'Success');
+                $this->session->set_flashdata('text', 'Module added Successfully');
+
                 redirect('module');
             } else {
                 $data['view'] = 'module/_create.php';
